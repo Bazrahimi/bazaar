@@ -7,7 +7,6 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-
   lastName: {
     type: String,
     required: true,
@@ -34,14 +33,10 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-
   contactNumber: {
     type: String,
     required: true,
-    
-    
   },
-
 });
 // Middleware to hash password before saving the user.
 userSchema.pre('save', async function(next) {
@@ -51,7 +46,6 @@ userSchema.pre('save', async function(next) {
   }
   next();
 });
-
 // Create the user model from the schema 
 const User = model('User', userSchema);
 

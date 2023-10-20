@@ -4,7 +4,7 @@ const typeDefs = gql`
 # User type for both buyer and sellers.
 type User {
   id: ID!
-  firtName: String!
+  firstName: String!
   lastName: String!
   email: String!
   password: String!
@@ -15,8 +15,8 @@ type User {
 
 # Enum for user roles.
 enum Role {
-  BUYER
-  SELLER
+  buyer
+  seller
 }
 
 type Query {

@@ -4,11 +4,13 @@ const typeDefs = gql`
 # User type for both buyer and sellers.
 type User {
   id: ID!
-  username: String!
+  firtName: String!
+  lastName: String!
   email: String!
   password: String!
   role: Role!
-
+  address: String!
+  contactNumber: String!
 }
 
 # Enum for user roles.
@@ -23,9 +25,9 @@ type Query {
 }
 
 type Mutation {
-  createUser(username: String!, email: String!, password: String!, role: Role!): User
-  updateUser(id: ID!, username: Sting!, email: String!, role: ROle): User
-  deleteUser(id: Id!): Boolean
+  createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: Role!, address: String!, contactNumber: String!): User
+  updateUser(id: ID!, name: String!, email: String!, role: Role): User
+  deleteUser(id: ID!): Boolean
 }
 `;
 

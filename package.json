@@ -1,0 +1,11 @@
+{
+  "name": "bazaar",
+  "version": "1.0.0",
+  "description": "Modern e-marketplace",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Baz Rahimi",
+  "license": "MIT"
+}

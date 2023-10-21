@@ -61,14 +61,47 @@ const resolvers = {
 
         user.password = await bcrypt.hash(newPassword, 10);
         await user.save();
-        return true; // successfully changed password
+        return "Password changed successfully"; 
 
       } catch (error) {
         throw new Error(error);
       }
+    },
+
+    // resover to suspend seller
+    suspendSeller: async (parent, { id }, context) => {
+      // Ensure the requester is an admin
+      if (context.user.rol !== 'admin') {
+        throw new Error('Only admins can suspend seller');
+      }
+
+      const seller = await User.findById(id);
+      if (!seller || seller.role !== 'seller') {
+        throw new Error('User not found or not a seller');
+      }
+
+      seller.status = 'suspended';
+      await seller.save();
+      return seller;
+    },
+
+      // resolver to promote an user to admin
+    promoteToAdmin: async (parent, { id }, context) => {
+      // Ensure the requester is a superadmin
+      if (context.user.role !== 'superadmin') {
+        throw new Error('Only superadmins can promote to admin')
+      }
+
+      const user = await User.findById(id);
+      if (!user) {
+        throw new Error('User not Found');
+      }
+
+      user.role = 'admin';
+      await user.save();
+      return user;
     }
-  }
-  
-}
+  },
+};
 
 module.exports = resolvers;

@@ -37,6 +37,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    enum: ['active', 'suspended'],
+    default: 'active'
+  }
 });
 // Middleware to hash password before saving the user.
 userSchema.pre('save', async function(next) {

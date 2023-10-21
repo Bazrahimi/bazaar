@@ -11,12 +11,20 @@ type User {
   role: Role!
   address: String!
   contactNumber: String!
+  status: UserStatus
+  
 }
-
 # Enum for user roles.
 enum Role {
   buyer
   seller
+  both
+  admin
+  superadmin
+}
+enum UserStatus {
+  active
+  suspended
 }
 
 type Query {
@@ -28,7 +36,9 @@ type Mutation {
   createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: Role!, address: String!, contactNumber: String!): User
   updateUser(id: ID!, firstName: String, lastName: String, email: String, password: String, role: Role, address: String, contactNumber: String ): User
   deleteUser(id: ID!): Boolean
-  changePassword(id: ID!, currentPassword: String!, newPassword: String!): Boolean!
+  changePassword(id: ID!, currentPassword: String!, newPassword: String!): String!
+  suspendSeller(id: ID!): User
+  promoteToAdmin(id: ID!): User
 
 }
 `;

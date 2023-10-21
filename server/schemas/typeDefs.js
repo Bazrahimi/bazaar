@@ -12,8 +12,9 @@ type User {
   address: String!
   contactNumber: String!
   status: UserStatus
-  
+  products: [Product]!
 }
+
 # Enum for user roles.
 enum Role {
   buyer
@@ -27,9 +28,20 @@ enum UserStatus {
   suspended
 }
 
+# Product Type
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  stock: Float!          # Added stock field
+  seller: User!
+}
+
 type Query {
   getAllUsers: [User]
   getUser(id: ID!): User
+  getAllProducts: [Product]
 }
 
 type Mutation {
@@ -40,7 +52,11 @@ type Mutation {
   suspendSeller(id: ID!): User
   promoteToAdmin(id: ID!): User
 
+  createProduct(name: String!, description: String!, price: Float!, stock: Float, UserId: ID): Product
+  updateProduct(id: ID!, name: String, description: String, price: Float, stock: Float): Product  # Added stock to update
+  deleteProduct(id: ID!): Boolean
 }
+
 `;
 
 module.exports = typeDefs;

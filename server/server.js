@@ -12,6 +12,10 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: (error) => {
+    console.log("Apollo Server Error:", error);
+    return error;
+  },
 });
 
 const startApolloServer = async () => {

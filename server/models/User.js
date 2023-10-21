@@ -1,4 +1,7 @@
-const { Schema, model, default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
+
+
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
@@ -41,7 +44,11 @@ const userSchema = new Schema({
     type: String,
     enum: ['active', 'suspended'],
     default: 'active'
-  }
+  },
+  products: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Product'
+  }]
 });
 // Middleware to hash password before saving the user.
 userSchema.pre('save', async function(next) {

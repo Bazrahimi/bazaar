@@ -1,7 +1,7 @@
-const { User } = require('../models')
+const { User } = require('../../models')
 const bcrypt = require('bcrypt');
 
-const resolvers = {
+const userResolvers = {
   Query: {
     getAllUsers: async () => {
       return User.find();
@@ -104,4 +104,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+module.exports = userResolvers;

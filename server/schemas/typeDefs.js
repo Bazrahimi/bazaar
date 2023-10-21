@@ -42,6 +42,7 @@ type Query {
   getAllUsers: [User]
   getUser(id: ID!): User
   getAllProducts: [Product]
+  getProductsBySeller(id: ID!): [Product]
 }
 
 type Mutation {
@@ -55,6 +56,7 @@ type Mutation {
   createProduct(name: String!, description: String!, price: Float!, stock: Float, UserId: ID): Product
   updateProduct(id: ID!, name: String, description: String, price: Float, stock: Float): Product  # Added stock to update
   deleteProduct(id: ID!): Boolean
+  
 }
 
 `;

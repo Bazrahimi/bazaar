@@ -1,4 +1,6 @@
 const { Product, User } = require('../../models');
+const { ObjectId } = require('mongoose').Types;
+
 
 
 const productResolvers = {
@@ -10,6 +12,19 @@ const productResolvers = {
         console.error('Error fetching all products:', error);
         throw new Error('Failed to fetch products');
       }
+    },
+
+    getProductsBySeller: async (parent, { id }) => {
+      try {
+        const products = await Product.find({ seller: new ObjectId(id) }).exec();
+        return products;
+
+      } catch (err) {
+        console.error(err);
+        throw new Error("Error fetching products for the user.");
+      }    
+ 
+  
     }
   },
   Mutation: {
@@ -32,6 +47,8 @@ const productResolvers = {
         throw new Error('Failed to create product');
       }
     }
+
+    
   }
 }
 

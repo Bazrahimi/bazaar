@@ -33,6 +33,7 @@ type Product {
   id: ID!
   name: String!
   description: String!
+  imageURLs: [String]!
   price: Float!
   stock: Float!          # Added stock field
   seller: User!
@@ -53,8 +54,8 @@ type Mutation {
   suspendSeller(id: ID!): User
   promoteToAdmin(id: ID!): User
 
-  createProduct(name: String!, description: String!, price: Float!, stock: Float, UserId: ID): Product
-  updateProduct(id: ID!, name: String, description: String, price: Float, stock: Float): Product  # Added stock to update
+  createProduct(name: String!, description: String!, imageURLs: [String!]!, price: Float!, stock: Float, UserId: ID): Product
+  updateProduct(id: ID!, name: String, description: String, imageURLs: String!, price: Float, stock: Float): Product  # Added stock to update
   deleteProduct(id: ID!): Boolean
   
 }

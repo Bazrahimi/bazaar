@@ -28,9 +28,9 @@ const productResolvers = {
     }
   },
   Mutation: {
-    createProduct: async (parent, { name, description, price, stock, UserId }) => {
+    createProduct: async (parent, { name, description, imageURLs, price, stock, UserId }) => {
       try {
-        const product = new Product({ name, description, price, stock, seller: UserId });
+        const product = new Product({ name, description, imageURLs, price, stock, seller: UserId });
         const savedProduct = await product.save();
         
         // Add the product ID to the seller's product array

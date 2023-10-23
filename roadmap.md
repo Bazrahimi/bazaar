@@ -2,8 +2,8 @@
 
 ## 1. Project
 
-- Node and Express: set up a new Node.js project using "mpm init" and integrate Express.js for backend.
-- Frontend with Vite. start a new React App using Vite.
+- Node and Express: set up a new Node.js project using `"mpm init"` and integrate Express.js for backend.
+- Frontend with Vite. start a new React App using Vite. `"npm create vite@latest"`
 - Connect MongoDB using Mongoose for the database.
 
 ## 2. Database Schemas:

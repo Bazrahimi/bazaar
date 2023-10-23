@@ -9,7 +9,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home';
-import Signup from './pages/Signup';
+import NoMatch from './pages/NoMatch';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -17,18 +18,11 @@ const httpLink = createHttpLink({
 
 function App() {
   return (
-    <ApolloProvider>
-      <div>
-        <Routes>
-          <Route>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-          </Route>
-        </Routes>
+    <div>
+      <Home />
+    
+    </div>
 
-      </div>
-
-    </ApolloProvider>
 
   );
 }

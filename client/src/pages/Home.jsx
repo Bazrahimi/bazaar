@@ -1,9 +1,21 @@
 import React from 'react';
 import './styles/Home.css';
 import LatestProducts from '../component/LatestProducts';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const navigateToSignUpForm = () => {
+    console.log('attempting to navigate to SignUpForm...');
+    try {
+      navigate('/SignUpForm')
+    } catch (error) {
+      console.error('Error Navigating', error);
+    }
+    
+  }
   return (
     <div className='container'>
       {/* Navigation Bar */}
@@ -11,7 +23,7 @@ const Home = () => {
       <div className='logo'>eBazaar</div>
       <input type="text" placeholder='Search for products...' />
       <button>Login</button>
-      <button>Sign Up</button>
+      <button onClick={navigateToSignUpForm} >Sign Up</button>
       <div className='cart-icon'>🛒</div>
       </nav>
 

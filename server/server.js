@@ -1,13 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { ApolloServer } = require('@apollo/server');
-
+const cors = require('cors');
 const path = require('path');
-
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -18,7 +18,15 @@ const server = new ApolloServer({
   },
 });
 
-
+// Use CORS differently based on environment
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors());
+} else {
+  // Production: Restrict allowed origins
+  app.use(cors({
+    origin: 'https://your-production-domain.com'
+  }));
+}
 
 const startApolloServer = async () => {
   await server.start();

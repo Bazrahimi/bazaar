@@ -9,9 +9,10 @@
 ## 2. Database Schemas:
 
 **User Schema**: For buyers and sellers.
+
 - Attributes: username, email, password, role (buyer, seller), etc.
 
-- **Product Schema**: 
+- **Product Schema**:
 - Attributes: title, description, price, sellerID (to link product to seller), images, category, ETC.
 
 - **Order Schema**:
@@ -20,10 +21,12 @@
 ## 3. Backend Development:
 
 ### Authentication:
+
 - Implement JWT-based authentication.
 - Differentiate roles: Buyer and Sellers
 
-### Product Routes: 
+### Product Routes:
+
 - Add a new product (Seller only)
 - Get all product
 - Get products by seller.
@@ -31,36 +34,44 @@
 - Delete Product.
 
 ### Order Routes:
+
 - Place and order (Buyers only)
-- Get Order by 
+- Get Order by
 - Update order status.
 
 ## 4. Frontend Development:
 
 ### Seller Dashboard:
+
 - Product Management: Add, edit, or delete Products
 - view orders for their Product.
 
 ### Buyer Dashboard:
+
 - Browse all products.
 - filter products by seller or category
 - place order or any cart system
-- purchase history 
+- purchase history
 
 ### Authentication:
+
 - Login and registration pages.
 - Role-based redirection post-login.
 
 ## 5. Implement Interactivity:
+
 - Allow buyers to add products to the cart and then proceed to checkout.
 - Seller can mark orders as shipped or completed.
 - Implement notification or email an ord status change.
 
 ## 6. Styling:
-- CSS framework Bootstrap
-- responsive app
+
+- Chakra UI for accessibility and polished design.
+- explore CSS-in-JS or plain CSS for a deep dive into styling.
+- Ensure the app is mobile-responsive.
 
 ## 7. Testing and Deployment:
+
 - test some feature thooughly.
 - Handle error cases and edge cases.
 - Deploy backend to Heroku
@@ -68,11 +79,8 @@
 - set up MongoDb atlas
 
 ## 8. Extra features:
+
 - add payment real time payment plugins
 - implement review and rating for products.
-- search funtionality 
+- search funtionality
 - seller and buyer profiles
-
-
-
-

@@ -71,10 +71,8 @@ const productResolvers = {
         });
         
         const savedProduct = await product.save();
-    
-        // Rest of your logic remains the same...
-    
         return savedProduct;
+        
       } catch (error) {
         console.error('Error saving product:', error);
         throw new Error('Failed to create product');
@@ -82,7 +80,6 @@ const productResolvers = {
     }
     
 
-    
   }
 }
 

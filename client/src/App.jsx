@@ -7,14 +7,10 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 import { BrowserRouter } from 'react-router-dom';
-
-
 
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
-
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -38,6 +34,5 @@ function App() {
     </ApolloProvider>
   );
 }
-
 
 export default App;

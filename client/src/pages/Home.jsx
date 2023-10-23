@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/Home.css';
+import LatestProducts from '../component/LatestProducts';
 
 
 const Home = () => {
@@ -31,6 +32,7 @@ const Home = () => {
         <button>Books</button>
         </div>
       </section>
+      <LatestProducts />
 
       {/* Footer */}
       <footer className='footer'>

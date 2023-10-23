@@ -42,7 +42,7 @@ type Product {
 type Query {
   getAllUsers: [User]
   getUser(id: ID!): User
-  getAllProducts: [Product]
+  getLatestProducts: [Product]
   getProductsBySeller(id: ID!): [Product]
 }
 

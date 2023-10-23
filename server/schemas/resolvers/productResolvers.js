@@ -9,9 +9,9 @@ const cloudinary = require('../../utils/cloudinary')
 
 const productResolvers = {
   Query: {
-    getAllProducts: async () => {
+    getLatestProducts: async () => {
       try {
-        return await Product.find();
+        return await Product.find().sort({ createdAt: 1 });
       } catch (error) {
         console.error('Error fetching all products:', error);
         throw new Error('Failed to fetch products');

@@ -1,22 +1,41 @@
-import { Image, CloudinaryContext, Transformation, ImageUpload } from 'cloudinary-react';
+import { useEffect, useRef } from "react";
 
-function UploadWidget() {
-    const showWidget = () => {
-        const widget = window.cloudinary.createUploadWidget(
-            {
-                cloudName: 'YOUR_CLOUD_NAME',
-                uploadPreset: 'YOUR_UPLOAD_PRESET'
-            },
-            (error, result) => {
-                if (result.event === 'success') {
-                    console.log('Image URL: ', result.info.secure_url);
-                }
-            }
-        );
-        widget.open();
-    };
+function UploadWidget(){
+    
+        const cloudinaryRef = useRef();
+        const widgetRef = useRef();
+        useEffect(() =>{
+            cloudinaryRef.current = window.cloudinary;
+            widgetRef.current = cloudinaryRef.current.createUploadWidget({
+                cloudName: 'drvh5xeuw',
+                uploadPreset: 'xjha8ild'
+            }, function(error, result) {
+                console.log(result)
+            });
+        
+        
+      
+        //   (error, result) => {
+        //     if (result.event === 'success') {
+        //       setFormData({
+        //         ...formData,
+        //         imageUrls: formData.imageUrls
+        //           ? formData.imageUrls + ',' + result.info.secure_url
+        //           : result.info.secure_url,
+        //       });
+        //     }
+        //   }
+        // );
+        // widget.open();
+        }, [])
+      
+      return (
+            <button onClick={() => widgetRef.current.open()}>Upload</button>
+        )
 
-    return <button onClick={showWidget}>Upload Image</button>;
-}
+    } 
+
+
+   
 
 export default UploadWidget;

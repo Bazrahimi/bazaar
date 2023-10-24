@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 
 // importing the graphql mutation for creating a product
 import { PRODUCT_LISTING } from '../graphql/mutation';
+import UploadWidget from '../component/Cloudinary';
 
 const ProductForm = () => {
   // starting form data state using react's useState
@@ -96,6 +97,8 @@ const ProductForm = () => {
         onChange={handleChange} 
         placeholder="Seller ID" 
       />
+      <UploadWidget formData={formData} setFormData={setFormData} />
+
       {/* Button to submit the form */}
       <button type="submit">Create Product</button>
     </form>

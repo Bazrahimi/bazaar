@@ -4,6 +4,7 @@ import LatestProducts from '../component/LatestProducts';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -16,6 +17,10 @@ const Home = () => {
     }
     
   }
+
+  const navigateToProductForm = () => {
+    navigate('/ProductForm')
+  }
   return (
     <div className='container'>
       {/* Navigation Bar */}
@@ -24,6 +29,7 @@ const Home = () => {
       <input type="text" placeholder='Search for products...' />
       <button>Login</button>
       <button onClick={navigateToSignUpForm} >Sign Up</button>
+      <button onClick={navigateToProductForm}>Sell your Product</button>
       <div className='cart-icon'>🛒</div>
       </nav>
 

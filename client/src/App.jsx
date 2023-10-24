@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
 import SignupForm from './pages/SignUpForm';
+import ProductForm from './pages/ProductForm';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/SignUpForm" element={<SignupForm />} />
+          <Route path='/ProductForm' element={<ProductForm />}/>
           <Route path="*" element={<NoMatch />} />
       </Routes>
 

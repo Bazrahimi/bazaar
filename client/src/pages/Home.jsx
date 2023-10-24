@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/Home.css';
 import LatestProducts from '../component/LatestProducts';
+import ProductsByCategory from '../component/ProductsByCategory';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -21,6 +22,11 @@ const Home = () => {
   const navigateToProductForm = () => {
     navigate('/ProductForm')
   }
+
+  const handleCategoryClick = (category) => {
+    navigate(`/products/${category}`);
+  };
+
   return (
     <div className='container'>
       {/* Navigation Bar */}
@@ -44,10 +50,10 @@ const Home = () => {
       <section className='categories'>
         <h2>Categories</h2>
         <div className='category-list'>
-        <button>Electronics</button>
-        <button>Fashion</button>
-        <button>Home & Garden</button>
-        <button>Books</button>
+          <button onClick={() => handleCategoryClick('Electronic')}>Electronics</button>
+          <button onClick={() => handleCategoryClick('Fashion')}>Fashion</button>
+          <button onClick={() => handleCategoryClick('Home and Garden')}>Home & Garden</button>
+          <button onClick={() => handleCategoryClick('Book')} >Books</button>
         </div>
       </section>
       <LatestProducts />

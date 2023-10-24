@@ -11,3 +11,16 @@ export const GET_LATEST_PRODUCTS = gql`
     }
   }
 `;
+export const GET_PRODUCTS_BY_CATEGORY = gql`
+  query GetProductsByCategory($category: String!) {
+    getProductsByCategory(category: $category) {
+      category
+      description
+      id
+      imageURLs
+      name
+      price
+      stock
+    }
+  }
+`;

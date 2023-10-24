@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_LATEST_PRODUCTS } from "../../graphql/queries";
+import { GET_LATEST_PRODUCTS } from "../graphql/queries";
 
 const LatestProducts = () => {
   const { loading , error, data } = useQuery(GET_LATEST_PRODUCTS);

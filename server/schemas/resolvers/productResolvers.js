@@ -27,14 +27,21 @@ const productResolvers = {
         console.error(err);
         throw new Error("Error fetching products for the user.");
       }    
- 
-  
-    }
+    },
+    getProductsByCategory: async (parent, { category }) => {
+      try {
+        const products = await Product.find( { category: category });
+        return products;
+      } catch (err) {
+        console.error(err);
+        throw new Error('Error fetching products for this category');
+      }
+    },
   },
   Mutation: {
-    createProduct: async (parent, { name, description, imageURLs, price, stock, sellerId }) => {
+    createProduct: async (parent, { name, description, category, imageURLs, price, stock, sellerId }) => {
       try {
-        const product = new Product({ name, description, imageURLs, price, stock, seller: sellerId });
+        const product = new Product({ name, description, category, imageURLs, price, stock, seller: sellerId });
         const savedProduct = await product.save();
         
         // Add the product ID to the seller's product array

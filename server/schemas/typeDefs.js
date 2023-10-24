@@ -32,6 +32,7 @@ enum UserStatus {
 type Product {
   id: ID!
   name: String!
+  category: String!,
   description: String!
   imageURLs: [String]!
   price: Float!
@@ -42,6 +43,8 @@ type Product {
 type Query {
   getAllUsers: [User]
   getUser(id: ID!): User
+  
+  getProductsByCategory(category:String!): [Product]
   getLatestProducts: [Product]
   getProductsBySeller(id: ID!): [Product]
 }
@@ -54,7 +57,7 @@ type Mutation {
   suspendSeller(id: ID!): User
   promoteToAdmin(id: ID!): User
 
-  createProduct(name: String!, description: String!, imageURLs: [String!]!, price: Float!, stock: Float, sellerId: ID): Product
+  createProduct(name: String!, category: String!, description: String!, imageURLs: [String!]!, price: Float!, stock: Float, sellerId: ID): Product
 
   updateProduct(id: ID!, name: String, description: String, imageURLs: String!, price: Float, stock: Float): Product  # Added stock to update
   deleteProduct(id: ID!): Boolean

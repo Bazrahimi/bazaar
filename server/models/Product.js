@@ -11,6 +11,13 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+    trim: true,
+    enum: ['Electronic', 'Fashion', 'Home and Garden', 'Book']
+  },
+
   imageURLs: {
     type: [String],
     required: true,

@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
 import SignupForm from './pages/SignUpForm';
 import ProductForm from './pages/ProductForm';
+import ProductsByCategory from './component/ProductsByCategory';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/SignUpForm" element={<SignupForm />} />
           <Route path='/ProductForm' element={<ProductForm />}/>
+          <Route path="/products/:category" element={<ProductsByCategory />} />
           <Route path="*" element={<NoMatch />} />
       </Routes>
 

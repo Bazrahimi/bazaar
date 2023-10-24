@@ -11,6 +11,7 @@ const ProductForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    catetegory: "",
     imageUrls: "",
     price: "",
     stock: "",
@@ -67,13 +68,18 @@ const ProductForm = () => {
         onChange={handleChange} 
         placeholder="Description" 
       />
-      {/* Input for product image URLs */}
-      <input 
-        name="imageURLs" 
-        value={formData.imageURLs} 
-        onChange={handleChange} 
-        placeholder="Image URLs (comma-separated)" 
-      />
+      <select 
+        name="category"
+        value={formData.category}
+        onChange={handleChange}
+      >
+        <option value="" disabled>Select a category</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Home and Garden">Home and Garden</option>
+        <option value="Book">Book</option>
+      </select>
+
       {/* Input for product price */}
       <input 
         name="price" 
@@ -97,7 +103,10 @@ const ProductForm = () => {
         onChange={handleChange} 
         placeholder="Seller ID" 
       />
+
       <UploadWidget formData={formData} setFormData={setFormData} />
+
+     
 
       {/* Button to submit the form */}
       <button type="submit">Create Product</button>

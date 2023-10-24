@@ -17,9 +17,10 @@ export const CREATE_USER = gql`
 `;
 
 export const PRODUCT_LISTING = gql`
-mutation CreateProduct($name: String!, $description: String!, $imageURLs: [String!]!, $price: Float!, $stock: Float, $sellerId: ID) {
-  createProduct(name: $name, description: $description, imageURLs: $imageURLs, price: $price, stock: $stock, sellerId: $sellerId) {
+mutation CreateProduct($name: String!, $description: String!, $category: String!, $imageURLs: [String!]!, $price: Float!, $stock: Float, $sellerId: ID) {
+  createProduct(name: $name, description: $description, category: $category, imageURLs: $imageURLs, price: $price, stock: $stock, sellerId: $sellerId) {
     description
+    category
     id
     imageURLs
     name

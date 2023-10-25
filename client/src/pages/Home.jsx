@@ -1,33 +1,35 @@
+import { Box, Button, Spacer } from "@chakra-ui/react";
 import React from 'react';
-import './styles/Home.css';
 import LatestProducts from '../component/LatestProducts';
-import ProductsByCategory from '../component/ProductsByCategory';
 import { useNavigate } from 'react-router-dom';
 
 
 
 const Home = () => {
   const navigate = useNavigate();
-
+  // function to navigae to product based on category
   const handleCategoryClick = (category) => {
     navigate(`/products/${category}`);
   };
 
   return (
-    <div className='container'>
-
-
-      {/* Categories Section */}
-      <section className='categories'>
-        <div className='category-list'>
-          <button onClick={() => handleCategoryClick('Electronic')}>Electronics</button>
-          <button onClick={() => handleCategoryClick('Fashion')}>Fashion</button>
-          <button onClick={() => handleCategoryClick('Home and Garden')}>Home & Garden</button>
-          <button onClick={() => handleCategoryClick('Book')} >Books</button>
-        </div>
-      </section>
+    <Box>
+      <Box display="flex" flexDirection="row" alignItems="center">
+        <Button colorScheme="blue" mr={20} onClick={() => handleCategoryClick('Electronic')}>
+          Electronics
+        </Button>
+        <Button colorScheme="blue" mr={20} onClick={() => handleCategoryClick('Fashion')}>
+          Fashion
+        </Button>
+        <Button colorScheme="blue" mr={20} onClick={() => handleCategoryClick('Home and Garden')}>
+          Home & Garden
+        </Button>
+        <Button colorScheme="blue" onClick={() => handleCategoryClick('Book')}>
+          Books
+        </Button>
+      </Box>
       <LatestProducts />
-    </div>
+    </Box>
   );
 }
 

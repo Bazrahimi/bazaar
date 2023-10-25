@@ -1,61 +1,54 @@
-import React from "react";
-// Link component will be used for navigation
+
 import { Link } from 'react-router-dom';
+import logo from '../../src/assets/logo/logo.png'
 
-// this functional component accept children as props which will be the content placed inside the layout(like specific page and components)
+import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 
-const layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
-    <div>
+    <Box>
+      <Flex as="header" p={5} bg="teal.500" alignItems="center">
 
-      {/* Header section  */}
-      <header>
-        <nav>
-          <Link to="/">
-            <div className='logo'>eBazaar</div>
-          </Link>
+      <Link to="/" marginRight="2px">
+        <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.500">e</Text>
+        <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
+        <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Modern Marketplace</Text>
+      </Link>
 
-          <div>
-            <input type="text" placeholder='Search for products...' />
-           <button>Search</button>
-          </div>
+        <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
+          <Input type="text" placeholder='Search for products...' bg="white" marginRight={2} flexGrow={1} />
+          <Button colorScheme="teal">Search</Button>
+        </Flex>
 
-          <Link>Login</Link>
+        <Link to="/login"><Button variant="ghost" color="white" marginLeft={2}>Login</Button></Link>
+        <Link to="/ProductForm"><Button variant="ghost" color="white" marginLeft={2}>Sell</Button></Link>
+        <Link to="/SignUpForm"><Button variant="ghost" color="white" marginLeft={2}>Sign Up</Button></Link>
 
-          <Link to="/ProductForm">Sell</Link>
+        <Text marginLeft={2} color="white">🛒</Text>
 
-          <Link to="/SignUpForm">Sign Up</Link>
+      </Flex>
 
-          <div className='cart-icon'>🛒</div>
-        
-        </nav>
-      </header>
-
-      {/* Main content of the layout */}
-      <main>
+      <Box as="main" p={4}>
         {children}
-      </main>
+      </Box>
 
-      <footer>
-      <footer className='footer'>
-        <div className='footer-links'>
-          <a href="#">Contact Us</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-        </div>
-        <div className='social-icons'> 
-          {/* Social Media Icons */}
-          <a href="#"><img src="../../src/assets/images/icons/facebook/Facebook_f_logo_(2021).svg" alt="Facebook" /></a>
-          <a href="#"><img src="../../src/assets/images/icons/twitter/Logo_of_Twitter.svg.png" alt="Twitter" /></a>
-          <a href="#"><img src="../../src/assets/images/icons/instagram/Instagram.png" alt="Twitter" /></a>
+      <Flex as="footer" p={4} bg="teal.700" direction="column" alignItems="center">
+        
+        <Flex marginBottom={2}>
+          <Text as="a" href="#" color="teal.100" marginRight={2}>Contact Us</Text>
+          <Text as="a" href="#" color="teal.100" marginRight={2}>Terms of Service</Text>
+          <Text as="a" href="#" color="teal.100">Privacy Policy</Text>
+        </Flex>
+        
+        <Flex>
+          <Link to="#"><Image src="../src/assets/images/icons/facebook/Facebook_Logo_(2019).png" alt="Facebook" w="30px" marginRight={5} /></Link>
+          <Link to="#"><Image src="../../src/assets/images/icons/twitter/Logo_of_Twitter.svg.png" alt="Twitter" w="30px" marginRight={5} /></Link>
+          <Link to="#"><Image src="../../src/assets/images/icons/instagram/Instagram.png" alt="Instagram" w="30px" /></Link>
+        </Flex>
 
-        </div>
-      </footer>
-
-      </footer>
-    </div>
-
-  )
+      </Flex>
+    </Box>
+  );
 }
 
-export default layout;
+export default Layout;

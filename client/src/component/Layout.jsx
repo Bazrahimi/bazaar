@@ -7,16 +7,25 @@ import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 const Layout = ({ children }) => {
   return (
     <Box>
-      <Flex as="header" p={5} bg="teal.500" alignItems="center">
-
-      <Link to="/" marginRight="2px">
-        <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.500">e</Text>
-        <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
-        <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Modern Marketplace</Text>
-      </Link>
+      <Flex as="header" bg="teal.500" alignItems="center">
+        <Flex as="header" p={1} bg="teal.500" alignItems="center">
+          <Link to="/" _hover={{ textDecoration: 'none' }}>
+            <Box 
+              display="inline-block"
+              padding="0.5rem 1rem"
+              borderRadius="md"
+              transition="background-color 0.2s"
+              _hover={{ backgroundColor: "teal.600" }}
+            >
+              <Text as="span" fontSize="3xl" fontWeight="bold" color="purple.500">e</Text>
+              <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
+              <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Modern Marketplace</Text>
+            </Box>
+          </Link>
+        </Flex>
 
         <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
-          <Input type="text" placeholder='Search for products...' bg="white" marginRight={2} flexGrow={1} />
+          <Input type="text" placeholder='Search for products...' bg="white" marginRight={-7} flexGrow={1} />
           <Button colorScheme="teal">Search</Button>
         </Flex>
 

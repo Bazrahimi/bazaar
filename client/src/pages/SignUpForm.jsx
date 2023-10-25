@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../graphql/mutation.js";
+import { Box, Input, Button, FormControl, FormLabel, Select, VStack } from "@chakra-ui/react";
 
 
 
@@ -36,71 +37,88 @@ const  SignUpForm = () =>{
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        name="firstName" 
-        value={formData.firstName} 
-        onChange={handleChange} 
-        placeholder="First Name" 
-      />
+    <Box as="form" onSubmit={handleSubmit} p={5} shadow="md" borderWidth="5px" rounded="md">
+      <VStack spacing={2}>
+        
+        <FormControl>
+          <FormLabel>First Name</FormLabel>
+          <Input
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+          />
+        </FormControl>
 
-      <input
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        placeholder="Last Name"
-      />
+        <FormControl>
+          <FormLabel>Last Name</FormLabel>
+          <Input
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+          />
+        </FormControl>
 
-      <input 
-        type="email"
-        name="email" 
-        value={formData.email} 
-        onChange={handleChange} 
-        placeholder="Email" 
-     />
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+        </FormControl>
 
-     <input 
-        type="password"
-        name="password" 
-        value={formData.password} 
-        onChange={handleChange} 
-        placeholder="Password" 
-     />
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+          />
+        </FormControl>
 
-    <select 
-      name="role" 
-      value={formData.role} 
-      onChange={handleChange}
-    >
-      <option value="" disabled>Select a role</option>
-      <option value="seller">Seller</option>
-      <option value="buyer">Buyer</option>
-      <option value="both">Both</option>
-    </select>
+        <FormControl>
+          <FormLabel>Role</FormLabel>
+          <Select 
+            name="role" 
+            value={formData.role} 
+            onChange={handleChange}
+          >
+            <option value="" disabled>Select a role</option>
+            <option value="seller">Seller</option>
+            <option value="buyer">Buyer</option>
+            <option value="both">Both</option>
+          </Select>
+        </FormControl>
 
-    <input 
-      name="address" 
-      value={formData.address} 
-      onChange={handleChange} 
-      placeholder="Address" 
-    />
+        <FormControl>
+          <FormLabel>Address</FormLabel>
+          <Input
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Address"
+          />
+        </FormControl>
 
-    <input 
-      name="contactNumber" 
-      value={formData.contactNumber} 
-      onChange={handleChange} 
-      placeholder="Contact Number" 
-    />
+        <FormControl>
+          <FormLabel>Contact Number</FormLabel>
+          <Input
+            name="contactNumber"
+            value={formData.contactNumber}
+            onChange={handleChange}
+            placeholder="Contact Number"
+          />
+        </FormControl>
 
-
-
-
-
-
-
-
-      <button type="submit">Signup</button>
-    </form>
+        <Button colorScheme="teal" type="submit">Signup</Button>
+      </VStack>
+    </Box>
   );
 }
 

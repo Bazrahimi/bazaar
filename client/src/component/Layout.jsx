@@ -1,17 +1,13 @@
-
-import { Link } from 'react-router-dom';
-
-
 import { Box, Button, Flex, Input, Text, Image, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   return (
     <Box>
       <Flex as="header" bg="teal.500" alignItems="center">
-        <Flex as="header" p={1} bg="teal.500" alignItems="center">
-          <Link to="/" _hover={{ textDecoration: 'none' }}>
-            <Box 
+        <Link to="/" _hover={{ textDecoration: 'none' }}>
+          <Box 
               display="inline-block"
               padding="0.5rem 1rem"
               borderRadius="md"
@@ -21,25 +17,39 @@ const Layout = ({ children }) => {
               <Text as="span" fontSize="3xl" fontWeight="bold" color="purple.500">e</Text>
               <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
               <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Modern Marketplace</Text>
-            </Box>
-          </Link>
-        </Flex>
+          </Box>
+        </Link>
 
-                {/* Dropdown menu for "Shop By Category" */}
         <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />} ml={4}>
+          <MenuButton as={Button} leftIcon={<HamburgerIcon />} bg="transparent" _hover={{ bg: "transparent" }} ml={0}>
             Shop By Category
           </MenuButton>
           <MenuList>
-            {/* Add your categories here */}
-            <MenuItem>Category 1</MenuItem>
-            <MenuItem>Category 2</MenuItem>
-            <MenuItem>Category 3</MenuItem>
+            <Link to="/products/Electronic">
+              <MenuItem>
+                Electronics
+              </MenuItem>
+            </Link>
+            <Link to="/products/Fashion">
+              <MenuItem>
+                Fashion
+              </MenuItem>
+            </Link>
+            <Link to="/products/Home and Garden">
+              <MenuItem>
+                Home & Garden
+              </MenuItem>
+            </Link>
+            <Link to="/products/Book">
+              <MenuItem>
+                Books
+              </MenuItem>
+            </Link>
           </MenuList>
         </Menu>
 
         <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
-          <Input type="text" placeholder='Search for products...' bg="white" marginRight={-7} flexGrow={1} />
+          <Input type="text" placeholder='Search for products...' bg="white" marginRight={1} flexGrow={1} />
           <Button colorScheme="teal">Search</Button>
         </Flex>
 

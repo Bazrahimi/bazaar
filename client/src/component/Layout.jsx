@@ -1,8 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import logo from '../../src/assets/logo/logo.png'
 
-import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
+
+import { Box, Button, Flex, Input, Text, Image, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const Layout = ({ children }) => {
   return (
@@ -23,6 +24,19 @@ const Layout = ({ children }) => {
             </Box>
           </Link>
         </Flex>
+
+                {/* Dropdown menu for "Shop By Category" */}
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />} ml={4}>
+            Shop By Category
+          </MenuButton>
+          <MenuList>
+            {/* Add your categories here */}
+            <MenuItem>Category 1</MenuItem>
+            <MenuItem>Category 2</MenuItem>
+            <MenuItem>Category 3</MenuItem>
+          </MenuList>
+        </Menu>
 
         <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
           <Input type="text" placeholder='Search for products...' bg="white" marginRight={-7} flexGrow={1} />

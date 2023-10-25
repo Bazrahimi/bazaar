@@ -1,25 +1,24 @@
+
 import { useQuery } from "@apollo/client";
+import React, { useEffect } from 'react'; // Import useEffect from react
 import { GET_LATEST_PRODUCTS } from "../graphql/queries";
 
-const LatestProducts = () => {
-  const { loading , error, data } = useQuery(GET_LATEST_PRODUCTS);
+const LatestProducts = ({ onDataFetched }) => {
+  const { loading, error, data } = useQuery(GET_LATEST_PRODUCTS);
+
+  useEffect(() => {
+    if (data && data.getLatestProducts) {
+      onDataFetched(data.getLatestProducts);
+    }
+  }, [data, onDataFetched]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: { error.message};</p>;
+  if (error) return <p>Error: { error.message }</p>;
 
-  return (
-    <div>
-      {data.getLatestProducts.map(product => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-          <p>Stock: {product.stock}</p>
-        </div>
-      ))}
-    </div>
-  );
+  return null; // This component only fetches data and doesn't display anything itself
 }
 
 export default LatestProducts;
+
+
 

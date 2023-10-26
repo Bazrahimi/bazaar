@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS_BY_CATEGORY } from "../graphql/queries";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
-import ProductGrid from './ProductGrid';
+import ProductGrid from '../component/ProductGrid';
 
 const ProductsByCategory = () => {
   const { category } = useParams();

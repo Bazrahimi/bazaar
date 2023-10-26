@@ -39,6 +39,12 @@ type Product {
   stock: Float!
   createdAt: String!        
   seller: User!
+  
+}
+
+type LatestProductsResponse {
+  products: [Product]!
+  totalProductsCount: Int!
 }
 
 type Query {
@@ -46,7 +52,7 @@ type Query {
   getUser(id: ID!): User
   
   getProductsByCategory(category:String!): [Product]
-  getLatestProducts: [Product]
+  getLatestProducts: LatestProductsResponse
   getProductsBySeller(id: ID!): [Product]
   getProductsById(id:ID!): Product
   getProductsBySearch(term:String!): [Product]

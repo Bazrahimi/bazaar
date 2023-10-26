@@ -3,13 +3,13 @@ import { gql } from "@apollo/client";
 export const GET_LATEST_PRODUCTS = gql`
   query GetLatestProducts {
     getLatestProducts {
-      category
-      description
-      id
-      imageURLs
-      name
-      stock
-      price
+      products {
+        id
+        imageURLs
+        name
+        price
+      }
+      totalProductsCount
     }
   }
 `;

@@ -5,13 +5,24 @@ const { ObjectId } = require('mongoose').Types;
 const multer = require('multer');
 const cloudinary = require('../../utils/cloudinary')
 
-
+const getTotalProductsCount = async () => {
+  return await Product.countDocuments();
+};
 
 const productResolvers = {
   Query: {
     getLatestProducts: async () => {
       try {
-        return await Product.find().sort({ createdAt: -1 });
+        const products = await Product.find().sort({ createdAt: -1 });
+        const totalProductsCount = await getTotalProductsCount();
+
+        // Return the combined response
+        return {
+          products,
+          totalProductsCount
+        };
+
+
       } catch (error) {
         console.error('Error fetching all products:', error);
         throw new Error('Failed to fetch products');

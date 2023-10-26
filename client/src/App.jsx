@@ -17,7 +17,7 @@ import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
 import SignupForm from './pages/SignUpForm';
 import ProductForm from './pages/ProductForm';
-import ProductsByCategory from './component/ProductsByCategory';
+import ProductsByCategory from './pages/ProductsByCategory';
 import Layout from './component/Layout';
 import ProductDetails from './component/ProductDetails';
 import SearchResults from './pages/SearchResult';

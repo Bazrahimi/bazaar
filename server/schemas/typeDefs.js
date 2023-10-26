@@ -49,6 +49,7 @@ type Query {
   getLatestProducts: [Product]
   getProductsBySeller(id: ID!): [Product]
   getProductsById(id:ID!): Product
+  getProductsBySearch(term:String!): [Product]
 }
 
 type Mutation {

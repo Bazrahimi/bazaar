@@ -20,6 +20,7 @@ import ProductForm from './pages/ProductForm';
 import ProductsByCategory from './component/ProductsByCategory';
 import Layout from './component/Layout';
 import ProductDetails from './component/ProductDetails';
+import SearchResults from './pages/SearchResult';
 
 
 const httpLink = createHttpLink({
@@ -44,7 +45,10 @@ function App() {
             <Route path='/ProductForm' element={<ProductForm />}/>
             <Route path="/products/:category" element={<ProductsByCategory />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/search" element={<SearchResults />} />
+
             <Route path="*" element={<NoMatch />} />
+            
          </Routes>
         </Layout>
       </BrowserRouter>

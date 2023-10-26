@@ -50,6 +50,22 @@ const productResolvers = {
         console.error(err);
         throw new Error('Error Product By its ID');
       }
+    },
+    getProductsBySearch: async (parent, { term }) => {
+      try {
+        const regex = new RegExp(term, 'i') // 'i' make the search case-insensitive
+        const products = await Product.find({
+          $or: [
+            {name: { $regex: regex }},
+            { category: { $regex: regex }},
+            { description: { $regex: regex }}
+          ]
+        });
+        return products;
+      } catch (err) {
+        console.error(err);
+        throw new Error('Error searching products for this term used')
+      }
     }
   },
   Mutation: {

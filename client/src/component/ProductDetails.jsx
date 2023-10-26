@@ -19,7 +19,9 @@ const ProductDetails = () => {
   return (
     <VStack spacing={3} align="start" p={4} boxShadow="lg" rounded="md">
       <Heading size="lg">{name}</Heading>
-      <Image boxSize="300px" src={imageURLs[0]} alt={name} />
+      {imageURLs.map((url, index) => (
+        <Image key={index} boxSize="300px" src={url} alt={name}/>
+      ))}
       <Text><strong>Category:</strong> {category}</Text>
       <Text><strong>Description:</strong> {description}</Text>
       <Text><strong>Price:</strong> ${price}</Text>

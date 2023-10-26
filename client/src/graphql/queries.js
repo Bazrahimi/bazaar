@@ -50,3 +50,14 @@ query Query($getProductsById: ID!) {
   }
 }
 `;
+
+export const GET_PRODUCTS_BY_SEARCH = gql`
+query Query($term: String!) {
+  getProductsBySearch(term: $term) {
+    id
+    imageURLs
+    name
+    price
+  }
+}
+`;

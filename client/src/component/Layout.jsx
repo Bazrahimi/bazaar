@@ -1,8 +1,20 @@
 import { Box, Button, Flex, Input, Text, Image, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 
 const Layout = ({ children }) => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const handleSearch = () => {
+    if (searchTerm) {
+      // navigate to a search result page, with searchTerm as a qery param.
+      navigate(`/search?query=${searchTerm}`);
+    }
+  }
   return (
     <Box>
       <Flex as="header" bg="teal.500" alignItems="center">
@@ -49,8 +61,15 @@ const Layout = ({ children }) => {
         </Menu>
 
         <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
-          <Input type="text" placeholder='Search for products...' bg="white" marginRight={1} flexGrow={1} />
-          <Button colorScheme="teal">Search</Button>
+          <Input
+            type="text"
+            placeholder='Search for products...'  bg="white"
+            marginRight={1} 
+            flexGrow={1} 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <Button colorScheme="teal" onClick={handleSearch}>Search</Button>
         </Flex>
 
         <Link to="/login"><Button variant="ghost" color="white" marginLeft={2}>Login</Button></Link>

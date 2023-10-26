@@ -1,13 +1,24 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_PRODUCTS_BY_ID } from "../graphql/queries";
 import { Box, Heading, Text, Image, VStack } from '@chakra-ui/react';
+import { PRODUCT_VIEW_COUNT } from "../graphql/mutation";
+import React from 'react';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   console.log(productId);
   // fetch product details using the Apollo useQuery hook
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { getProductsById: productId } });
+  const [incrementProductViewCount] = useMutation(PRODUCT_VIEW_COUNT);
+
+  React.useEffect(() => {
+    if (productId) {
+      incrementProductViewCount({ variables: { incrementProductViewCountId: productId } });
+    }
+  }, [productId, incrementProductViewCount]);
+
+
   
   // Handle loading error states
   if (loading) return <p>Loading...</p>;

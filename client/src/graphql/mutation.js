@@ -29,3 +29,13 @@ mutation CreateProduct($name: String!, $description: String!, $category: String!
   }
 }
 `;
+
+export const PRODUCT_VIEW_COUNT = gql`
+  mutation Mutation($incrementProductViewCountId: ID!) {
+    incrementProductViewCount(id: $incrementProductViewCountId) {
+      name
+      id 
+      viewCount
+    }
+  }
+`;

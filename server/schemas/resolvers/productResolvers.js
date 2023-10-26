@@ -29,6 +29,23 @@ const productResolvers = {
       }
     },
 
+    getMostViewedProducts: async () => {
+      try {
+        // Find products sorted by viewCount in descending order
+        const products = await Product.find().sort({ viewCount: -1 });
+        const totalProductsCount = await Product.countDocuments();
+
+        return {
+          products,
+          totalProductsCount
+        };
+
+      } catch (error) {
+        console.error('Error fetching most viewed products:', error);
+        throw new Error('Failed to fetch most viewed products');
+      }
+    },
+
     getProductsBySeller: async (parent, { id }) => {
       try {
         const products = await Product.find({ seller: new ObjectId(id) }).exec();
@@ -98,8 +115,26 @@ const productResolvers = {
         console.error('Error saving product:', error);
         throw new Error('Failed to create product');
       }
+    },
+
+    incrementProductViewCount: async (_, { id }) => {
+      try {
+        const product = await Product.findByIdAndUpdate(
+          id,
+          { $inc: { viewCount: 1 } }, // Increment viewCount by 1
+          { new: true } // Return the updated product
+        );
+        return product;
+      } catch (error) {
+        console.error('Error incrementing product view count:', error);
+        throw error;
+      }
     }
-  }
+
+ 
+  },
+
+  
 } 
 
 

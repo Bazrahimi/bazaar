@@ -39,13 +39,19 @@ type Product {
   stock: Float!
   createdAt: String!        
   seller: User!
+  viewCount: Int!
   
 }
 
 type LatestProductsResponse {
-  products: [Product]!
-  totalProductsCount: Int!
-}
+    products: [Product]!
+    totalProductsCount: Int!
+  }
+
+type getMostViewedProducts: {
+    products: [Product]!
+    totalProductsCount: Int!
+  }
 
 type Query {
   getAllUsers: [User]
@@ -53,6 +59,7 @@ type Query {
   
   getProductsByCategory(category:String!): [Product]
   getLatestProducts: LatestProductsResponse
+  getMostViewedProducts: LatestProductsResponse
   getProductsBySeller(id: ID!): [Product]
   getProductsById(id:ID!): Product
   getProductsBySearch(term:String!): [Product]
@@ -70,6 +77,8 @@ type Mutation {
 
   updateProduct(id: ID!, name: String, description: String, imageURLs: String!, price: Float, stock: Float): Product  # Added stock to update
   deleteProduct(id: ID!): Boolean
+
+  incrementProductViewCount(id: ID!): Product
   
 }
 

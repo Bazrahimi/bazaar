@@ -7,6 +7,10 @@ const productSchema = new Schema({
     required: true,
     trim: true,
   },
+  viewCount: {
+    type: Number,
+    default: 0,
+  },
   
   description: {
     type: String,

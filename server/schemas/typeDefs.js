@@ -36,7 +36,8 @@ type Product {
   description: String!
   imageURLs: [String]!
   price: Float!
-  stock: Float!          # Added stock field
+  stock: Float!
+  createdAt: String!        
   seller: User!
 }
 
@@ -47,6 +48,7 @@ type Query {
   getProductsByCategory(category:String!): [Product]
   getLatestProducts: [Product]
   getProductsBySeller(id: ID!): [Product]
+  getProductsById(id:ID!): Product
 }
 
 type Mutation {

@@ -37,6 +37,20 @@ const productResolvers = {
         throw new Error('Error fetching products for this category');
       }
     },
+    getProductsById: async(parent, { id }) => {
+      try {
+        const product = await Product.findById(id).populate('seller');
+
+        if (!product) {
+          throw new Error('Product not found');
+      }
+        
+        return product;
+      } catch (err) {
+        console.error(err);
+        throw new Error('Error Product By its ID');
+      }
+    }
   },
   Mutation: {
     createProduct: async (parent, { name, description, category, imageURLs, price, stock, sellerId }) => {

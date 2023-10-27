@@ -132,6 +132,11 @@ const ProductForm = () => {
           />
         </FormControl>
 
+        {/* QuillEditor: we are using this component for rich text editing.
+         onChange: is a prop with a function to handle updates to the description
+         The function updates the form data state. it recieve the current (previours) state as "preveData'
+         ...prevData: its spread out all properties of the previous state to keep them unchanged.
+         */}
         <FormControl id="description" mt={6}>
           <FormLabel>Description</FormLabel>
           <QuillEditor

@@ -61,3 +61,18 @@ query Query($term: String!) {
   }
 }
 `;
+
+export const MOST_VIEWED_PRODUCTS =   gql`
+  query MostViewedProducts {
+    MostViewedProducts {
+      products {
+        name
+        id
+        price
+        viewCount
+      }
+      totalProductsCount
+    }
+  }
+`;
+

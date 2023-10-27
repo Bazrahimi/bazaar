@@ -2,16 +2,16 @@ import { useQuery } from "@apollo/client";
 import React, { useEffect } from 'react'; 
 import { GET_LATEST_PRODUCTS } from "../graphql/queries";
 
-const LatestProducts = ({ onDataFetched }) => {
+const LatestProducts = ({ handleDataFetch }) => {
   const { loading, error, data } = useQuery(GET_LATEST_PRODUCTS);
 
   useEffect(() => {
     if (data && data.getLatestProducts) {
       const { products, totalProductsCount } = data.getLatestProducts;
       // Now you can safely use products and totalProductsCount
-      onDataFetched({ products, totalProductsCount });
+      handleDataFetch({ products, totalProductsCount });
     }
-  }, [data, onDataFetched]);
+  }, [data, handleDataFetch]);
   
 
 

@@ -29,7 +29,7 @@ const productResolvers = {
       }
     },
 
-    getMostViewedProducts: async () => {
+    MostViewedProducts: async () => {
       try {
         // Find products sorted by viewCount in descending order
         const products = await Product.find().sort({ viewCount: -1 });

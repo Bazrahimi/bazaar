@@ -32,7 +32,7 @@ enum UserStatus {
 type Product {
   id: ID!
   name: String!
-  category: String!,
+  category: String!
   description: String!
   imageURLs: [String]!
   price: Float!
@@ -46,12 +46,12 @@ type Product {
 type LatestProductsResponse {
     products: [Product]!
     totalProductsCount: Int!
-  }
+    }
 
-type getMostViewedProducts: {
+type MostViewedProducts {
     products: [Product]!
     totalProductsCount: Int!
-  }
+   }
 
 type Query {
   getAllUsers: [User]
@@ -59,7 +59,7 @@ type Query {
   
   getProductsByCategory(category:String!): [Product]
   getLatestProducts: LatestProductsResponse
-  getMostViewedProducts: LatestProductsResponse
+  MostViewedProducts: MostViewedProducts
   getProductsBySeller(id: ID!): [Product]
   getProductsById(id:ID!): Product
   getProductsBySearch(term:String!): [Product]

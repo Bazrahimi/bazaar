@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useLoadMore = (initialCount = 9, totalCount = 0) => {
+const useLoadMore = (initialCount = 8, totalCount = 0) => {
   const [itemsToShow, setItemsToShow] = useState(initialCount);
 
   const loadMore = () => {

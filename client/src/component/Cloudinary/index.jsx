@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 
 const UploadWidget = ( { formData, setFormData }) =>{ // destructuring from probs
         // useRef hook return ref object with current property.
@@ -37,7 +38,20 @@ const UploadWidget = ( { formData, setFormData }) =>{ // destructuring from prob
         }, [])
       
       return (
-            <button type="button" onClick={() => widgetRef.current.open()}>Image-Upload</button>
+        <Button
+        type="button"
+        onClick={() => widgetRef.current.open()}
+        leftIcon={<span role="img" aria-label="paperclip">📎</span>}
+        colorScheme="teal"
+        variant="solid"
+        size="md"
+        fontSize="sm"
+        px={4}
+        py={2}
+      >
+        Attach Image
+      </Button>
+      
         )
 
     } 

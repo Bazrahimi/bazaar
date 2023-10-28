@@ -1,5 +1,7 @@
 const { User } = require('../../models')
 const bcrypt = require('bcrypt');
+const { signToken, AuthenticationError } = require('../../utils/auth');
+
 
 const userResolvers = {
   Query: {
@@ -22,6 +24,23 @@ const userResolvers = {
         throw new Error (error);
       }
     },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw AuthenticationError
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
+  
 
     // resolver to update user
     updateUser: async (parent, args) => {

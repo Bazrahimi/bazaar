@@ -66,6 +66,7 @@ type Query {
 }
 
 type Mutation {
+  login(email: String!, password: String!): Auth
   createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: Role!, address: String!, contactNumber: String!): User
   updateUser(id: ID!, firstName: String, lastName: String, email: String, password: String, role: Role, address: String, contactNumber: String ): User
   deleteUser(id: ID!): Boolean
@@ -80,6 +81,11 @@ type Mutation {
 
   incrementProductViewCount(id: ID!): Product
   
+}
+
+type Auth {
+  token: ID!
+  user: User!
 }
 
 `;

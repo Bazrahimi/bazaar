@@ -1,6 +1,5 @@
 
 import { Outlet } from 'react-router-dom';
-
 import { Routes, Route } from 'react-router-dom';
 
 import {
@@ -12,6 +11,7 @@ import {
 
 // Browserrouter wrap the app. and provide routing capabilities.
 import { BrowserRouter } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
@@ -21,15 +21,27 @@ import ProductsByCategory from './pages/ProductsByCategory';
 import Layout from './component/Layout';
 import ProductDetails from './component/ProductDetails';
 import SearchResults from './pages/SearchResult';
+import Login from './pages/Login';
+import PrivateRoute from './utils/PrivateRoute';
 
 
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -39,17 +51,23 @@ function App() {
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Layout>
-          <Routes>
+        <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/SignUpForm" element={<SignupForm />} />
-            <Route path='/ProductForm' element={<ProductForm />}/>
+            {/* Wrap the ProductForm with PrivateRoute */}
+            <Route path='/ProductForm' element={
+              <PrivateRoute>
+                <ProductForm />
+              </PrivateRoute>
+            }/>
             <Route path="/products/:category" element={<ProductsByCategory />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/search" element={<SearchResults />} />
-
+            <Route path="/Login" element={<Login />} />
             <Route path="*" element={<NoMatch />} />
-            
-         </Routes>
+          </Routes>
+
+        
         </Layout>
       </BrowserRouter>
     </ApolloProvider>

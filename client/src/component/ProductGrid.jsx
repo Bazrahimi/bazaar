@@ -13,8 +13,7 @@ const textStyles = {
   paddingRight: "4px"
 };
 
-
-const ProductGrid = ({ products, onClick }) => {
+const ProductGrid = ({ products, showViewCount, onClick }) => {
   const gridTemplateColumns = useBreakpointValue({
     base: "repeat(1, 1fr)",
     sm: "repeat(2, 1fr)",
@@ -35,6 +34,11 @@ const ProductGrid = ({ products, onClick }) => {
             </Box>
           </Box>
           <Text style={{ WebkitLineClamp: 2, ...textStyles }}>{product.name}</Text>
+          {showViewCount && product.viewCount && (
+            <Text mt={2} fontSize="sm" textAlign="center">
+              Views: {product.viewCount}
+            </Text>
+          )}
         </Box>
       ))}
     </Grid>

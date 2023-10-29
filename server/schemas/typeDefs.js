@@ -55,7 +55,7 @@ type MostViewedProducts {
 
 type Query {
   getAllUsers: [User]
-  getUser(id: ID!): User
+  getUserDetails(id: ID!): User
   
   getProductsByCategory(category:String!): [Product]
   getLatestProducts: LatestProductsResponse

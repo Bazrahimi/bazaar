@@ -62,7 +62,7 @@ query Query($term: String!) {
 }
 `;
 
-export const MOST_VIEWED_PRODUCTS =   gql`
+export const MOST_VIEWED_PRODUCTS = gql`
   query MostViewedProducts {
     MostViewedProducts {
       products {
@@ -70,8 +70,24 @@ export const MOST_VIEWED_PRODUCTS =   gql`
         id
         price
         viewCount
+        imageURLs
       }
       totalProductsCount
+    }
+  }
+`;
+
+export const GET_USER_DETAILS = gql`
+  query Query($getUserDetailsId: ID!) {
+    getUserDetails(id: $getUserDetailsId) {
+      address
+      contactNumber
+      email
+      firstName
+      id
+      lastName
+      role
+      status
     }
   }
 `;

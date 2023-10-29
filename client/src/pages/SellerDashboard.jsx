@@ -1,14 +1,14 @@
-// pages/SellerDashboard.jsx
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import React from 'react';
+import UserDetails from '../component/UserDetails';
+
 
 const SellerDashboard = () => {
     const { id } = useParams();
     return (
         <div>
-            <h1>Welcome to the Seller Dashboard</h1>
-            {/* You can add more content or components here */}
+            <UserDetails userId={id} />
         </div>
     );
 };

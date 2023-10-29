@@ -1,61 +1,65 @@
 import decode from 'jwt-decode';
-// creating a class to manage authentication related functionalities 
-class AuthService {
 
-  // method to get the user profile from JWT
-  getProfile() {
+// Creating a class to manage authentication-related functionalities
+class AuthService {
+  // Method to get the user profile from JWT
+  getUser() {
     // Decoding the token to user information
     return decode(this.getToken());
   }
 
   // Method to check if the user is logged in
-  loggeIn() {
-    // retrieving the user token from localStroage
-    const token = this.getToke();
-    // checking if toke exist and does not check if the token is expired
-    return !!token;
+  loggedIn() {
+    // Retrieving the user token from localStorage
+    const token = this.getToken();
+    // Checking if the token exists and whether it has expired
+    // If the token exists and is not expired, return true; otherwise, return false
+    return !!token && !this.isTokenExpired(token);
   }
 
   // Method to retrieve user token from the localStorage
   getToken() {
+    // Returning the token stored in localStorage with the key 'id_token'
     return localStorage.getItem('id_token');
   }
 
-  // method to log the user in
+  // Method to log the user in
   login(idToken, userId) {
-    // saving the user toke to localstroage
-    // this si crucial for maintaining the user's logged-in state between page reloads.
+    // Saving the user token to localStorage
+    // This is crucial for maintaining the user's logged-in state between page reloads.
     localStorage.setItem('id_token', idToken);
-    // redirecting user to seller dashboard
+    // Redirecting user to seller dashboard
     window.location.assign(`/SellerDashboard/${userId}`);
-
-    
   }
 
+  // Method to check if a token has expired
   isTokenExpired(token) {
     try {
+      // Decoding the token to get its expiration time
       const decoded = decode(token);
+      // Checking if the current time is past the token's expiration time
+      // If it is, the token has expired, and we return true; otherwise, we return false
       if (decoded.exp < Date.now() / 1000) {
         return true;
       } else {
         return false;
       }
     } catch (err) {
-      console.log('expired check failed! Line 24: ', err);
-      return false;
+      // Logging the error if there's a problem decoding the token
+      console.log('Expired check failed! Line 44: ', err);
+      // Returning true as a default, to indicate that the token has expired
+      return true;
     }
   }
 
+  // Method to log the user out
   logout() {
-    localStorage.removeItem('auth-token');
-    // You can add a callback for navigation here if needed
+    // Removing the user token from localStorage
+    localStorage.removeItem('id_token');
+    // Reloading the page to reset the application state
+    window.location.reload();
   }
-
-
-
 }
 
-
-
-
+// Exporting an instance of AuthService so it can be imported and used in other parts of the application
 export default new AuthService();

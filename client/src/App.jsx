@@ -1,4 +1,4 @@
-
+import { Outlet } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 
 import {
@@ -32,14 +32,6 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
-// authLink with setContext:
-// authlink: is a piece of Apollo Middleware that is responsible for modifying the context of the Apollo Client request before its sent the server. 
-// SetContext: This is a function from that let us modify the context of Graphql request. the context include headers credentials and other setting.
-// inside the setcontext we have an arrow function;
-// the arrow funcion take and argument, 
-// it recieve two agrument, the first one is empty, the second argument is object header.
-// inside the function we are get the athentication token from the browser.
-// we are returning an ojbect header where we spread the existing header and add new authrization.
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('auth-token');
   return {
@@ -69,23 +61,10 @@ function App() {
             <Route path="/products/:category" element={<ProductsByCategory />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/search" element={<SearchResults />} />
-            
-            {/* this is a condition route.
-            redirect the user if they are loggein,  */}
-            {/* <Route 
-              path="/Login" 
-              element={
-                auth.loggedIn() ? <Navigate to={`/SellerDashboard/${auth.getProfile()}`} /> : <Login />
-              }
-            /> */}
-
             <Route path="/Login" element={<Login />} />
             <Route path="/SellerDashboard/:id" element={<SellerDashboard />} />
-
             <Route path="*" element={<NoMatch />} />
           </Routes>
-
-        
         </Layout>
       </BrowserRouter>
     </ApolloProvider>

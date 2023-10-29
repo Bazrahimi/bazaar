@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../graphql/mutation.js";
 import { Box, Input, Button, FormControl, FormLabel, Select, VStack } from "@chakra-ui/react";
+import Auth from '../utils/auth.js'
+
 
 // Define the SingUp functional component
 const  SignUpForm = () =>{
@@ -20,8 +22,7 @@ const  SignUpForm = () =>{
   // Initialize the creature user mutation
   const [createUser] = useMutation(CREATE_USER);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
+  
   // Define functiont to handle change in form
   const handleChange = (event) => {
     const { name, value } = event.target; // Destructure name and value properties from the event target
@@ -52,16 +53,18 @@ const  SignUpForm = () =>{
     }
     setError(""); 
     try {
-      const { data } = await createUser({ variables: formData });
-      console.log("User created:", data.createUser);
-      setSuccess("User created successfully!");
-      window.location.reload();
+      const { data } = await createUser({
+        variables: formData});
+        const userId = data.createUser.user.id;
+        console.log(createUser);
+        console.log(data);
 
+        Auth.login(data.createUser.token, userId);
       
     } catch (error) {
       console.error("Error creating user:", error.message);
       setError("Failed to create user");
-      setSuccess("")
+     
     }
   };
 
@@ -178,11 +181,7 @@ const  SignUpForm = () =>{
             {error}
           </Box>
         )}
-          {success && (
-            <Box color="green.500" mt={3}>
-              {success}
-            </Box>
-          )}
+
 
       </VStack>
       

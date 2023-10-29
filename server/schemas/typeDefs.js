@@ -42,6 +42,10 @@ type Product {
   viewCount: Int!
   
 }
+type Auth {
+  token: String!
+  user: User
+}
 
 type LatestProductsResponse {
     products: [Product]!
@@ -67,8 +71,8 @@ type Query {
 
 type Mutation {
   login(email: String!, password: String!): Auth
-  createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: Role!, address: String!, contactNumber: String!): User
-  updateUser(id: ID!, firstName: String, lastName: String, email: String, password: String, role: Role, address: String, contactNumber: String ): User
+  createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: Role!, address: String!, contactNumber: String!): Auth
+  updateUser(id: ID!, firstName: String, lastName: String, email: String, password: String, role: Role, address: String, contactNumber: String ): Auth
   deleteUser(id: ID!): Boolean
   changePassword(id: ID!, currentPassword: String!, newPassword: String!): String!
   suspendSeller(id: ID!): User
@@ -83,10 +87,7 @@ type Mutation {
   
 }
 
-type Auth {
-  token: ID!
-  user: User!
-}
+
 
 `;
 

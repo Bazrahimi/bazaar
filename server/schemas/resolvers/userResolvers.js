@@ -17,9 +17,9 @@ const userResolvers = {
   Mutation: {
     createUser: async (parent, { firstName, lastName, email, password, role, address, contactNumber }) => {
       try {
-        const user = new User ({ firstName, lastName, email, password, role: role.toLowerCase(), address, contactNumber });
-        return await user.save();
-
+        const user = new User ({ firstName, lastName, email, password, role: role.toLowerCase(), address, contactNumber }).save();
+        const token = signToken(user)
+        return { token, user } 
       } catch (error) {
         throw new Error (error);
       }

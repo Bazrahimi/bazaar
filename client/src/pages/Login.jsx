@@ -5,13 +5,18 @@ import { Box, Button, Input, FormControl, FormLabel } from '@chakra-ui/react';
 import auth from '../utils/auth';
 import { useNavigate, Link } from 'react-router-dom';
 
+// Login component
 const Login = () => {
+  // state for managing form input
   const [formState, setFormState] = useState({ email: '', password: '' });
+  // state for managing login errors
   const [loginError, setLoginError] = useState(null);
+  // Destructure loading, error, data from mutation.
   const [login, { loading, error, data }] = useMutation(LOGIN_USER);
-
+  // hook for programatic navigation.
   const navigate = useNavigate();
 
+  // Handler function for form input change, updating formstate
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -19,26 +24,21 @@ const Login = () => {
       [name]: value,
     });
   };
-
+  // Hander funtiuon for form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await login({
-        variables: { ...formState },
-      });
-
+      const { data } = await login({ variables: { ...formState } });
+      console.log("Login data:", data);
       if (data && data.login.token) {
-        localStorage.setItem('auth-token', data.login.token);
-        auth.login(data.login.token);
-        
-        const tokenInStorage = localStorage.getItem('token');
-
-        if (tokenInStorage && auth.isLoggedIn()) {
-          const userId = data.login.user.id; 
-          navigate(`/SellerDashboard/${userId}`);
+        // Check if the token is expired
+        if (auth.isTokenExpired(data.login.token)) {
+          setLoginError('Session has expired. Please log in again.');
         } else {
-          setLoginError('Failed to authenticate. Please try again.');
+          auth.login(data.login.token, data.login.user.id);
         }
+      } else {
+        setLoginError('Failed to authenticate. Please try again.');
       }
     } catch (e) {
       console.error(e);

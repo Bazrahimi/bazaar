@@ -1,36 +1,61 @@
-// use this to decode a token and get the user's information out of it
 import decode from 'jwt-decode';
-
-// create a new class to instantiate for a user
+// creating a class to manage authentication related functionalities 
 class AuthService {
-  // get user data from JSON web token by decoding it
+
+  // method to get the user profile from JWT
   getProfile() {
+    // Decoding the token to user information
     return decode(this.getToken());
   }
 
-  // return `true` or `false` if token exists (does not verify if it's expired yet)
-  loggedIn() {
-    const token = this.getToken();
-    return token ? true : false;
+  // Method to check if the user is logged in
+  loggeIn() {
+    // retrieving the user token from localStroage
+    const token = this.getToke();
+    // checking if toke exist and does not check if the token is expired
+    return !!token;
   }
 
+  // Method to retrieve user token from the localStorage
   getToken() {
-    // Retrieves the user token from localStorage
     return localStorage.getItem('id_token');
   }
 
-  login(idToken) {
-    // Saves user token to localStorage and reloads the application for logged in status to take effect
+  // method to log the user in
+  login(idToken, userId) {
+    // saving the user toke to localstroage
+    // this si crucial for maintaining the user's logged-in state between page reloads.
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    // redirecting user to seller dashboard
+    window.location.assign(`/SellerDashboard/${userId}`);
+
+    
+  }
+
+  isTokenExpired(token) {
+    try {
+      const decoded = decode(token);
+      if (decoded.exp < Date.now() / 1000) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.log('expired check failed! Line 24: ', err);
+      return false;
+    }
   }
 
   logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
-    // this will reload the page and reset the state of the application
-    window.location.reload();
+    localStorage.removeItem('auth-token');
+    // You can add a callback for navigation here if needed
   }
+
+
+
 }
+
+
+
 
 export default new AuthService();

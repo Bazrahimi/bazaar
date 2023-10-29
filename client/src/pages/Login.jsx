@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
+  const [loginError, setLoginError] = useState(null);
   const [login, { loading, error, data }] = useMutation(LOGIN_USER);
 
   const navigate = useNavigate();
@@ -25,17 +26,25 @@ const Login = () => {
       const { data } = await login({
         variables: { ...formState },
       });
-  
+
       if (data && data.login.token) {
         localStorage.setItem('auth-token', data.login.token);
         auth.login(data.login.token);
-        navigate('/ProductForm');
+        
+        const tokenInStorage = localStorage.getItem('token');
+
+        if (tokenInStorage && auth.isLoggedIn()) {
+          const userId = data.login.user.id; 
+          navigate(`/SellerDashboard/${userId}`);
+        } else {
+          setLoginError('Failed to authenticate. Please try again.');
+        }
       }
     } catch (e) {
       console.error(e);
+      setLoginError('Login failed. Please check your credentials.');
     }
   };
-  
 
   return (
     <Box p={4} width="100%" maxWidth="600px" mx="auto">
@@ -65,14 +74,15 @@ const Login = () => {
         <Button type="submit" isLoading={loading} colorScheme="blue">
           Login
         </Button>
-        {/* Add this for "Sign Up Seller Account" button */}
-        <Link to="/SignUpForm" style={{ display: 'block', marginTop: '16px' }}> 
+        
+        <Link to="/SignUpForm" style={{ display: 'block', marginTop: '16px' }}>
           <Button colorScheme="blue">
-             Sign Up Seller Account
+            Sign Up Seller Account
           </Button>
         </Link>
 
         {error && <Box color="red.500" mt={2}>{error.message}</Box>}
+        {loginError && <Box color="red.500" mt={2}>{loginError}</Box>}
       </form>
     </Box>
   );

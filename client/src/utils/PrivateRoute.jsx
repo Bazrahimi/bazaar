@@ -1,8 +1,16 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AuthService from './auth';
 
-const PrivateRoute = ({ children }) => {
-  return AuthService.loggedIn() ? children : <Navigate to="/login" />;
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!AuthService.loggedIn()) {
+    navigate('/login', { state: { from: location } });
+    return null;
+  }
+
+  return <Component {...rest} />;
 };
 
 export default PrivateRoute;

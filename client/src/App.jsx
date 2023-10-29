@@ -7,11 +7,13 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
+
 } from '@apollo/client';
 
 // Browserrouter wrap the app. and provide routing capabilities.
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Navigate } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
+import auth from './utils/auth';
 
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
@@ -22,7 +24,9 @@ import Layout from './component/Layout';
 import ProductDetails from './component/ProductDetails';
 import SearchResults from './pages/SearchResult';
 import Login from './pages/Login';
+import SellerDashboard from './pages/SellerDashboard'
 import PrivateRoute from './utils/PrivateRoute';
+
 
 
 const httpLink = createHttpLink({
@@ -30,7 +34,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('auth-token');
   return {
     headers: {
       ...headers,
@@ -54,16 +58,20 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/SignUpForm" element={<SignupForm />} />
-            {/* Wrap the ProductForm with PrivateRoute */}
-            <Route path='/ProductForm' element={
-              <PrivateRoute>
-                <ProductForm />
-              </PrivateRoute>
-            }/>
+            <Route path="/ProductForm" element={<ProductForm />} />
             <Route path="/products/:category" element={<ProductsByCategory />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/search" element={<SearchResults />} />
-            <Route path="/Login" element={<Login />} />
+
+            <Route 
+              path="/Login" 
+              element={
+                auth.loggedIn() ? <Navigate to={`/SellerDashboard/${auth.getProfile()}`} /> : <Login />
+              }
+            />
+            
+            <Route path="/SellerDashboard/:id" element={<SellerDashboard />} />
+
             <Route path="*" element={<NoMatch />} />
           </Routes>
 

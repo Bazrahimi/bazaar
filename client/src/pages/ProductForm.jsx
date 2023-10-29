@@ -23,7 +23,7 @@ import QuillEditor from '../component/QuillEditor';
 
 
 
-const ProductForm = () => {
+const ProductForm = ( { userId }) => {
   
   const [formData, setFormData] = useState({
     name: "",

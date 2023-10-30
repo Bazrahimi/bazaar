@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from "@apollo/client";
-import { useLocation } from 'react-router-dom'; // <-- Import this
+import { useLocation } from 'react-router-dom'; 
 import { Box, VStack } from '@chakra-ui/react';
 import ProductGrid from './ProductGrid'; 
 import { GET_PRODUCTS_BY_SEARCH } from '../graphql/queries';

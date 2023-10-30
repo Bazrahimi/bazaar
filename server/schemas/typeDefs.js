@@ -81,7 +81,7 @@ type Mutation {
   createProduct(name: String!, category: String!, description: String!, imageURLs: [String!]!, price: Float!, stock: Float, sellerId: ID): Product
 
   updateProduct(id: ID!, name: String, description: String, imageURLs: String!, price: Float, stock: Float): Product  # Added stock to update
-  deleteProduct(id: ID!): Boolean
+  deleteProduct(id: ID!): Boolean!
 
   incrementProductViewCount(id: ID!): Product
   

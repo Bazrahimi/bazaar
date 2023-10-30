@@ -32,22 +32,23 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
 `;
 
 export const GET_PRODUCTS_BY_ID = gql`
-query Query($getProductsById: ID!) {
-  getProductsById(id: $getProductsById) {
-    category
-    createdAt
-    description
-    id
-    imageURLs
-    name
-    price
-    stock
-    seller {
+  query Query($getProductsById: ID!) {
+    getProductsById(id: $getProductsById) {
+      category
+      createdAt
+      description
       id
-      firstName
-      email
+      imageURLs
+      name
+      price
+      stock
+      seller {
+        id
+        firstName
+        email
+      }
+      viewCount
     }
-  }
 }
 `;
 

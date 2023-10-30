@@ -129,13 +129,39 @@ const productResolvers = {
         console.error('Error incrementing product view count:', error);
         throw error;
       }
+    },
+
+    deleteProduct: async (_, { id }) => {
+      try {
+        // Find the product to delete
+        const productToDelete = await Product.findById(id);
+        if (!productToDelete) {
+          console.error('Error deleting product: Product not found');
+          return false;
+        }
+
+        // Delete the product
+        await Product.findByIdAndDelete(id);
+
+        // Remove the product from the seller's product list
+        await User.findByIdAndUpdate(productToDelete.seller, { $pull: { products: productToDelete._id } });
+
+        return true; // Indicate success
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        return false;
+      }
     }
+  }
+}
+
+    
+
 
  
-  },
 
   
-} 
+
 
 
 module.exports = productResolvers;

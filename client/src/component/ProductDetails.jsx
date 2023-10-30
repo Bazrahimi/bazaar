@@ -37,9 +37,7 @@ const ProductDetails = () => {
       <Text><strong>Category:</strong> {category}</Text>
       <Box>
         <strong>Description:</strong>
-        {/* this is a React Div element that is being puse to render HTML content directly.
-        dangerouslySetInnerHTML: this is react prop that allows us to set the inner HTML of a component.it is named dangerous, beacuse it is dangerous, becauase we used this to render user-provided content. there is risk of XSS attack, unless the content is properly sanitized.
-        '__html: description': this is an object that tells react to treat the 'description' prop or variable as raw HTML */}
+   
         <div
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} 
         />

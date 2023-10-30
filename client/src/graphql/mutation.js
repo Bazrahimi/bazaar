@@ -50,3 +50,9 @@ export const LOGIN_USER = gql`
   }
 
 `;
+
+export const DELETE_PRODUCT = gql`
+  mutation Mutation($deleteProductId: ID!) {
+    deleteProduct(id: $deleteProductId)
+  }
+`;

@@ -1,38 +1,56 @@
-import React, { useState } from 'react';
+import { Box, Button } from '@chakra-ui/react';
+import react, { useState } from 'react';
+import { DELETE_PRODUCT } from '../graphql/mutation';
+import { useMutation } from '@apollo/client';
 
-const ProductDetailsModal = ({ product, onClose }) => {
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [updatedProduct, setUpdatedProduct] = useState(product);
+// it recieve products and onclose as props.
+const ProductDetailsModal = ( { product, onClose}) => {
 
-    const handleUpdate = () => {
-        // Update the product using API or any state management logic
-        setIsEditMode(false);
-    };
+  // State for tracking whether the component is in edit mode.
+  const [isEditMode, setIsEditMode] = useState(false);
 
-    const handleDelete = () => {
-        // Delete the product using API or any state management logic
-        onClose(); // Close the modal after delete
-    };
+  // state for storing the product details that may be updated.
+  const [updatedProduct, setUpdatedProduct] = useState(product);
+  const [deleteProduct, { loading: deleteLoading, error: deleteError }] = useMutation(DELETE_PRODUCT);
 
-    return (
-        <div className="modal">
-            {!isEditMode ? (
-                <>
-                    <h2>{product.name}</h2>
-                    <p>Price: ${product.price}</p>
-                    <button onClick={() => setIsEditMode(true)}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
-                </>
-            ) : (
-                <>
-                    <input value={updatedProduct.name} onChange={e => setUpdatedProduct({...updatedProduct, name: e.target.value})} />
-                    <input value={updatedProduct.price} onChange={e => setUpdatedProduct({...updatedProduct, price: e.target.value})} />
-                    <button onClick={handleUpdate}>Save</button>
-                </>
-            )}
-            <button onClick={onClose}>Close</button>
-        </div>
-    );
+  // function to handle updating the product
+  const handleUpdate = () => {
+    // TODO: send the updated product to my API
+    // after updating, swtich back to view mode.
+    setIsEditMode(false);
+  };
+
+  const handleDelete = async() => {
+    try {
+      await deleteProduct({ variables: { deleteProductId: product.id } });
+      window.location.reload();
+      onClose();
+
+    }catch (error) {
+      console.error("Failed to delete product:", error);
+    }
+  };
+  
+
+  // Render method of the component.
+  return (
+    <Box className='modal'>
+      {!isEditMode ? (
+        <>
+          <Button onClick={() =>setIsEditMode(true)}>Edit</Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </>
+      ):(
+        <>
+          <input value={updatedProduct.name} onChange={e => setUpdatedProduct({...updatedProduct, name: e.target.value})} />
+          <input value={updatedProduct.price} onChange={e => setUpdatedProduct({...updatedProduct, price: e.target.value})} />
+          <button onClick={handleUpdate}>Save</button>
+        </>
+      )};
+      <button onClick={onClose}>Close</button>
+    </Box>
+
+  );
 };
 
 export default ProductDetailsModal;

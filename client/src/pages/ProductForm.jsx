@@ -9,12 +9,20 @@ import {
   FormControl,
   FormLabel,
   VStack,
-  HStack,
-  useBreakpointValue,
   useMediaQuery,
   Stack,
-  Flex
+  Flex,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+
 } from '@chakra-ui/react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Importing the GraphQL mutation for creating a product.
 import { PRODUCT_LISTING } from '../graphql/mutation';
@@ -23,7 +31,12 @@ import QuillEditor from '../component/QuillEditor';
 
 
 
-const ProductForm = ( { userId }) => {
+const ProductForm = () => {
+  const { userId } = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+  const [newProductId, setNewProductId] = useState(null);
+
   
   const [formData, setFormData] = useState({
     name: "",
@@ -32,7 +45,7 @@ const ProductForm = ( { userId }) => {
     imageUrls: "",
     price: "",
     stock: "",
-    sellerId: ""
+    sellerId: userId
   });
 
   const [createProduct] = useMutation(PRODUCT_LISTING);
@@ -50,17 +63,41 @@ const ProductForm = ( { userId }) => {
     event.preventDefault();
     try {
       const variables = {
-        ...formData,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        imageURLs: formData.imageUrls.split(',').map(url => url.trim())
-      };
-      const { data } = await createProduct({ variables });
-      console.log("Product created", data.createProduct);
-    } catch (error) {
-      console.error("Error creating product:", error.message);
-    }
+          ...formData,
+          price: parseFloat(formData.price),
+          stock: parseInt(formData.stock),
+          sellerId: formData.sellerId,
+        
+          imageURLs: formData.imageUrls.split(',').map(url => url.trim())
+          
+        };
+        const { data } = await createProduct({ variables });
+        console.log("Product created", data.createProduct);
+      // Store the product ID
+      setNewProductId(data.createProduct.id);
+      console.log("this is productid" + data.createProduct.id)
+        onOpen();
+      } catch (error) {
+        console.error("Error creating product:", error.message);
+      }
+    
+
   };
+
+  const handleListMore = () => {
+
+    window.location.reload();
+   
+  };
+  const handleNavigateToProduct = () => {
+    navigate(`/product/${newProductId}`);
+};
+
+
+  
+
+
+
 
   return (
     <Box w="100%" p={4} display="flex" justifyContent="center" onSubmit={handleSubmit}>
@@ -73,9 +110,8 @@ const ProductForm = ( { userId }) => {
         borderWidth="2px"
         borderRadius="lg"
       >
-        <Stack direction={{ base: 'column', md: 'row' }} spacing={[2, 4, 6]}>
+
           <FormControl id="name" flex={1}>
-            <FormLabel>Product Name</FormLabel>
             <Input
               name="name"
               value={formData.name}
@@ -85,7 +121,6 @@ const ProductForm = ( { userId }) => {
           </FormControl>
 
           <FormControl id="category" flex={1}>
-            <FormLabel>Product Category</FormLabel>
             <Select 
               name="category"
               value={formData.category}
@@ -100,7 +135,6 @@ const ProductForm = ( { userId }) => {
           </FormControl>
 
           <FormControl id="price" flex={1}>
-            <FormLabel>Product Price</FormLabel>
             <Input
               name="price"
               type="number"
@@ -111,35 +145,19 @@ const ProductForm = ( { userId }) => {
           </FormControl>
 
           <FormControl id="stock" flex={1}>
-            <FormLabel>Available Stock</FormLabel>
             <Input
               name="stock"
               type="number"
               value={formData.stock}
               onChange={handleChange}
-              placeholder="Stock"
+              placeholder="Available Stock"
             />
           </FormControl>
-        </Stack>
-
-        <FormControl id="sellerId">
-          <FormLabel>Seller ID</FormLabel>
-          <Input
-            name="sellerId"
-            value={formData.sellerId}
-            onChange={handleChange}
-            placeholder="Seller ID"
-          />
-        </FormControl>
-
-        {/* QuillEditor: we are using this component for rich text editing.
-         onChange: is a prop with a function to handle updates to the description
-         The function updates the form data state. it recieve the current (previours) state as "preveData'
-         ...prevData: its spread out all properties of the previous state to keep them unchanged.
-         */}
+      
+        
         <FormControl id="description" mt={6}>
-          <FormLabel>Description</FormLabel>
-          <QuillEditor
+          <FormLabel>Product Description</FormLabel>
+          <QuillEditor 
             onChange={(newDescription) => {
               setFormData((prevData) =>({
                 ...prevData,
@@ -153,13 +171,39 @@ const ProductForm = ( { userId }) => {
           <UploadWidget formData={formData} setFormData={setFormData} />
         </Box>
 
-        <Flex mt={4} justifyContent="center" width="100%">
+        <Flex mt={1} justifyContent="center" width="100%">
           <Button colorScheme="teal" type="submit" width={["100%", "auto"]}>
             Create Product
           </Button>
         </Flex>
       </VStack>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Product Listed</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            You have successfully listed your product.
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="teal" mr={3} onClick={handleListMore}>
+              List More Products
+            </Button>
+            <Button colorScheme="teal" onClick={(event) => {
+  event.stopPropagation();
+  handleNavigateToProduct();
+}}>
+  Navigate to Product
+</Button>
+
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
     </Box>
+
+  
   );
 }
 

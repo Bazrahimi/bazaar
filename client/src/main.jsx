@@ -27,6 +27,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="search" element={<SearchResults />} />
           <Route path="Login" element={<Login />} />
           <Route path="SellerDashboard/:id" element={<SellerDashboard />} />
+          <Route path="/ProductForm/:userId" element={<ProductForm />} />
+
+
+
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

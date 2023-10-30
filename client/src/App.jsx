@@ -1,32 +1,9 @@
-import { Outlet } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
-
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-
-} from '@apollo/client';
-
-// Browserrouter wrap the app. and provide routing capabilities.
-import { BrowserRouter, Navigate } from 'react-router-dom';
+import React from 'react';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import auth from './utils/auth';
-
-import Home from './pages/Home';
-import NoMatch from './pages/NoMatch';
-import SignupForm from './pages/SignUpForm';
-import ProductForm from './pages/ProductForm';
-import ProductsByCategory from './pages/ProductsByCategory';
+import { Outlet } from 'react-router-dom';
 import Layout from './component/Layout';
-import ProductDetails from './component/ProductDetails';
-import SearchResults from './pages/SearchResult';
-import Login from './pages/Login';
-import SellerDashboard from './pages/SellerDashboard'
-import PrivateRoute from './utils/PrivateRoute';
-
-
+import { Flex } from "@chakra-ui/react";
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,7 +19,6 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
@@ -50,23 +26,10 @@ const client = new ApolloClient({
 
 function App() {
   return (
-
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Layout>
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/SignUpForm" element={<SignupForm />} />
-            <Route path="/ProductForm" element={<ProductForm />} />
-            <Route path="/products/:category" element={<ProductsByCategory />} />
-            <Route path="/product/:productId" element={<ProductDetails />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/SellerDashboard/:id" element={<SellerDashboard />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+      <Layout >
+        <Outlet />
+      </Layout>
     </ApolloProvider>
   );
 }

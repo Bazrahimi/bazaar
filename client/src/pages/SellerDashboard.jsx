@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import UserDetails from '../component/UserDetails';
 
@@ -9,6 +9,7 @@ const SellerDashboard = () => {
     return (
         <div>
             <UserDetails userId={id} />
+            
         </div>
     );
 };

@@ -1,52 +1,119 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_PRODUCTS_BY_ID } from "../graphql/queries";
-import { Box, Heading, Text, Image, VStack } from '@chakra-ui/react';
+import {Box, Select, Flex, Text, Button, Image, VStack, Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
 import { PRODUCT_VIEW_COUNT } from "../graphql/mutation";
-import React from 'react';
+import React, { useEffect } from 'react';
 import DOMPurify from "dompurify";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProductDetails = () => {
+  // Hooks should be at the top level and shouldn't be used conditionally
   const { productId } = useParams();
-  console.log(productId);
-  // fetch product details using the Apollo useQuery hook
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { getProductsById: productId } });
   const [incrementProductViewCount] = useMutation(PRODUCT_VIEW_COUNT);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedImage, setSelectedImage] = React.useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (productId) {
       incrementProductViewCount({ variables: { incrementProductViewCountId: productId } });
     }
   }, [productId, incrementProductViewCount]);
 
-
-  
-  // Handle loading error states
+  // Handling loading and error states
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Destructure product details from data
+  // Destructuring product details from data
   const { category, createdAt, description, id, imageURLs, name, price, stock, seller } = data.getProductsById;
 
+  
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+  
+  
+
   return (
-    <VStack spacing={3} align="start" p={4} boxShadow="lg" rounded="md">
-      <Heading size="lg">{name}</Heading>
+    <VStack margin="20px" spacing={7} align="start" p={4} boxShadow="xlg" rounded="md">
+
+
+<Flex>
+  <Box w="500px" mr="40px" mb="40px">
+    <Slider {...sliderSettings}>
       {imageURLs.map((url, index) => (
-        <Image key={index} boxSize="300px" src={url} alt={name}/>
+        <Box onClick={() => { setSelectedImage(url); onOpen(); }} key={index}>
+          <Image boxSize="500px" src={url} alt={name} cursor="pointer" />
+        </Box>
       ))}
-      <Text><strong>Category:</strong> {category}</Text>
+    </Slider>
+  </Box>
+
+  <Box>
+    <Text fontSize="3xl" mb={4}>{name}</Text>
+    <Text fontSize="2xl" mb={4}>
+      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Price:</span> <span style={{ fontWeight: "bold" }}>${price}</span>
+    </Text>
+    <Text fontSize="2xl" mb={4}>
+      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Available:</span> <span style={{ fontWeight: "bold" }}>{stock}</span>
+    </Text>
+    <Text fontSize="2xl" mb={4}>
+      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Seller's Store:</span> <span style={{ fontWeight: "bold" }}>{seller.firstName} </span>
+    </Text>
+
+    {/* Dropdown for quantity selection */}
+    <Select placeholder="Select quantity" mb={4}>
+      {[...Array(stock).keys()].map(i => 
+        <option value={i+1} key={i+1}>{i+1}</option>
+      )}
+    </Select>
+
+    {/* Styled button */}
+    <Button backgroundColor="teal.500" color="white" _hover={{ backgroundColor: "teal.600" }}>
+      Add to Cart
+    </Button>
+  </Box>
+</Flex>
+
+     
+
+
+ 
+
       <Box>
         <strong>Description:</strong>
-   
         <div
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} 
         />
       </Box>
-      <Text><strong>Price:</strong> ${price}</Text>
-      <Text><strong>Stock:</strong> {stock}</Text>
-      <Text><strong>Seller:</strong> {seller.firstName} ({seller.email})</Text>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="xxl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <Slider {...sliderSettings} initialSlide={imageURLs.indexOf(selectedImage)}>
+            {imageURLs.map((url, index) => (
+              <Box key={index}>
+                <Image src={url} alt={name} maxW="100%" maxH="80vh" m="auto" />
+              </Box>
+            ))}
+          </Slider>
+        </ModalContent>
+      </Modal>
+
+
     </VStack>
   );
 };
+
 
 export default ProductDetails;

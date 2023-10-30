@@ -21,7 +21,7 @@ const Home = () => {
   const { products, totalProductsCount } = latestProductsData;
  
 
-  const [productsToShow, loadMoreProducts, canLoadMore] = useLoadMore(9, totalProductsCount);
+  const [productsToShow, loadMoreProducts, canLoadMore] = useLoadMore(8, totalProductsCount);
   
   // Set latest products data
   const setProductsData = useCallback(data => {

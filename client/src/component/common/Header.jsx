@@ -92,7 +92,7 @@ const Header = () => {
         )}
       </Box>
 
-      <Text marginLeft={2} color="white">🛒</Text>
+      <Text marginLeft={2} marginRight={15} color="white">🛒 Cart</Text>
 
     </Flex>
   );

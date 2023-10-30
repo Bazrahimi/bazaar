@@ -92,3 +92,17 @@ export const GET_USER_DETAILS = gql`
   }
 `;
 
+export const GET_PRODUCTS_BY_SELLER = gql`
+query GetProductsBySeller($getProductsBySellerId: ID!) {
+  getProductsBySeller(id: $getProductsBySellerId) {
+    viewCount
+    name
+    price
+    imageURLs
+    id
+  }
+}
+`;
+
+
+

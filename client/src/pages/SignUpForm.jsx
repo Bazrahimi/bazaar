@@ -68,7 +68,6 @@ const  SignUpForm = () =>{
     }
   };
 
-
   return (
     <Box 
       as="form"
@@ -84,7 +83,6 @@ const  SignUpForm = () =>{
       <VStack spacing={2}>
         
         <FormControl>
-          <FormLabel>First Name</FormLabel>
           <Input
             name="firstName"
             value={formData.firstName}
@@ -94,7 +92,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Last Name</FormLabel>
           <Input
             name="lastName"
             value={formData.lastName}
@@ -104,7 +101,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Email</FormLabel>
           <Input
             type="email"
             name="email"
@@ -115,7 +111,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Password</FormLabel>
           <Input
             type="password"
             name="password"
@@ -127,7 +122,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Confirm Password</FormLabel>
           <Input
             type="password"
             name="confirmPassword"
@@ -139,7 +133,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Role</FormLabel>
           <Select 
             name="role" 
             value={formData.role} 
@@ -153,7 +146,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Address</FormLabel>
           <Input
             name="address"
             value={formData.address}
@@ -163,7 +155,6 @@ const  SignUpForm = () =>{
         </FormControl>
 
         <FormControl>
-          <FormLabel>Contact Number</FormLabel>
           <Input
             name="contactNumber"
             value={formData.contactNumber}
@@ -175,7 +166,7 @@ const  SignUpForm = () =>{
 
         
 
-        <Button colorScheme="teal" type="submit">Signup</Button>
+        <Button colorScheme="teal" type="submit">Sign Up</Button>
         {error && (
           <Box color="red.500" mt={3}>
             {error}

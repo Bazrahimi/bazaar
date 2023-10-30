@@ -173,7 +173,7 @@ const ProductForm = () => {
 
         <Flex mt={1} justifyContent="center" width="100%">
           <Button colorScheme="teal" type="submit" width={["100%", "auto"]}>
-            Create Product
+            List Product
           </Button>
         </Flex>
       </VStack>
@@ -191,11 +191,11 @@ const ProductForm = () => {
               List More Products
             </Button>
             <Button colorScheme="teal" onClick={(event) => {
-  event.stopPropagation();
-  handleNavigateToProduct();
-}}>
-  Navigate to Product
-</Button>
+              event.stopPropagation();
+              handleNavigateToProduct();
+              }}>
+              Navigate to Product
+            </Button>
 
           </ModalFooter>
         </ModalContent>

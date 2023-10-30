@@ -13,6 +13,7 @@ import ProductDetails from './component/ProductDetails';
 import SearchResults from './pages/SearchResult';
 import Login from './pages/Login';
 import SellerDashboard from './pages/SellerDashboard';
+import ProductsBySeller from './pages/ProductsBySeller';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider>
@@ -22,12 +23,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route index element={<Home />} />
           <Route path="SignUpForm" element={<SignupForm />} />
           <Route path="ProductForm" element={<ProductForm />} />
+
+
+
           <Route path="products/:category" element={<ProductsByCategory />} />
           <Route path="product/:productId" element={<ProductDetails />} />
           <Route path="search" element={<SearchResults />} />
           <Route path="Login" element={<Login />} />
           <Route path="SellerDashboard/:id" element={<SellerDashboard />} />
           <Route path="/ProductForm/:userId" element={<ProductForm />} />
+          <Route path="Products/:userId" element= {<ProductsBySeller />} />
+         
 
 
 

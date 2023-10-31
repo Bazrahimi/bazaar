@@ -8,14 +8,20 @@ import DOMPurify from "dompurify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useCart } from '../context/cartContext';
 
 const ProductDetails = () => {
   // Hooks should be at the top level and shouldn't be used conditionally
   const { productId } = useParams();
+
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { getProductsById: productId } });
   const [incrementProductViewCount] = useMutation(PRODUCT_VIEW_COUNT);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = React.useState(null);
+  const { addToCart } = useCart();
+
+  // state to maintain selected quantity, pick 1 by default
+  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
 
   useEffect(() => {
     if (productId) {
@@ -30,8 +36,6 @@ const ProductDetails = () => {
   // Destructuring product details from data
   const { category, createdAt, description, id, imageURLs, name, price, stock, seller } = data.getProductsById;
 
-  
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -40,54 +44,61 @@ const ProductDetails = () => {
     slidesToScroll: 1,
   };
 
-  
-  
+  const handleQuantityChange = (e) => {
+    setSelectedQuantity(Number(e.target.value));
+  };
+
+
+
+  const handleAddToCart = () => {
+    const productToAdd = {
+      id: id,
+      name: name,
+      price: price,
+      quantity: selectedQuantity
+    };
+    console.log(productToAdd);
+    addToCart(productToAdd);
+  };
 
   return (
     <VStack margin="20px" spacing={7} align="start" p={4} boxShadow="xlg" rounded="md">
-
-
-<Flex>
-  <Box w="500px" mr="40px" mb="40px">
-    <Slider {...sliderSettings}>
-      {imageURLs.map((url, index) => (
-        <Box onClick={() => { setSelectedImage(url); onOpen(); }} key={index}>
-          <Image boxSize="500px" src={url} alt={name} cursor="pointer" />
+      <Flex>
+        <Box w="500px" mr="40px" mb="40px">
+          <Slider {...sliderSettings}>
+            {imageURLs.map((url, index) => (
+              <Box onClick={() => { setSelectedImage(url); onOpen(); }} key={index}>
+                <Image boxSize="500px" src={url} alt={name} cursor="pointer" />
+              </Box>
+            ))}
+          </Slider>
         </Box>
-      ))}
-    </Slider>
-  </Box>
 
-  <Box>
-    <Text fontSize="3xl" mb={4}>{name}</Text>
-    <Text fontSize="2xl" mb={4}>
-      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Price:</span> <span style={{ fontWeight: "bold" }}>${price}</span>
-    </Text>
-    <Text fontSize="2xl" mb={4}>
-      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Available:</span> <span style={{ fontWeight: "bold" }}>{stock}</span>
-    </Text>
-    <Text fontSize="2xl" mb={4}>
-      <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Seller's Store:</span> <span style={{ fontWeight: "bold" }}>{seller.firstName} </span>
-    </Text>
+        <Box>
+          <Text fontSize="3xl" mb={4}>{name}</Text>
+          <Text fontSize="2xl" mb={4}>
+            <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Price:</span> <span style={{ fontWeight: "bold" }}>${price}</span>
+          </Text>
+          <Text fontSize="2xl" mb={4}>
+            <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Available:</span> <span style={{ fontWeight: "bold" }}>{stock}</span>
+          </Text>
+          <Text fontSize="2xl" mb={4}>
+            <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Seller's Store:</span> <span style={{ fontWeight: "bold" }}>{seller.firstName} </span>
+          </Text>
 
-    {/* Dropdown for quantity selection */}
-    <Select placeholder="Select quantity" mb={4}>
-      {[...Array(stock).keys()].map(i => 
-        <option value={i+1} key={i+1}>{i+1}</option>
-      )}
-    </Select>
+          {/* Dropdown for quantity selection */}
+          <Select placeholder="Select quantity" mb={4} onChange={handleQuantityChange}>
+            {[...Array(stock).keys()].map(i => 
+              <option value={i+1} key={i+1}>{i+1}</option>
+            )}
+          </Select>
 
-    {/* Styled button */}
-    <Button backgroundColor="teal.500" color="white" _hover={{ backgroundColor: "teal.600" }}>
-      Add to Cart
-    </Button>
-  </Box>
-</Flex>
-
-     
-
-
- 
+          {/* Styled button */}
+          <Button backgroundColor="teal.500" color="white" _hover={{ backgroundColor: "teal.600" }} onClick={handleAddToCart}>
+            Add to Cart
+          </Button>
+        </Box>
+      </Flex>
 
       <Box>
         <strong>Description:</strong>

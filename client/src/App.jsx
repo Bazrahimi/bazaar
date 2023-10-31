@@ -4,6 +4,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import Layout from './component/Layout';
 import { Flex } from "@chakra-ui/react";
+import { CartProvider } from './context/cartContext';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -25,13 +26,17 @@ const client = new ApolloClient({
 });
 
 function App() {
+  console.log('App is rendeirng');
   return (
     <ApolloProvider client={client}>
-      <Layout >
-        <Outlet />
-      </Layout>
+      <CartProvider>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </CartProvider>
     </ApolloProvider>
   );
 }
+
 
 export default App;

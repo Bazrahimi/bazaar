@@ -4,9 +4,18 @@ import decode from 'jwt-decode';
 class AuthService {
 
   getUser() {
- 
-    return decode(this.getToken());
+    try {
+      const token = this.getToken();
+      if (token) {
+        return decode(token);
+      }
+      return null;
+    } catch (err) {
+      console.error("Failed to decode the token", err);
+      return null;
+    }
   }
+  
 
   loggedIn() {
 

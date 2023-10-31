@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Input, Text, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import Auth from '../../utils/auth';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,30 +18,28 @@ const Header = () => {
     navigate('/cart')
   }
 
-  const logout = (e) => {
-    e.preventDefault();
-    Auth.logout();
-  }
-
   return (
-    <Flex as="header" bg="teal.500" alignItems="center">
+    <Flex as="header" bg="teal.500" alignItems="center" paddingX={4} flexWrap="wrap"> 
       <Link to="/" _hover={{ textDecoration: 'none' }}>
-        <Box 
-            display="inline-block"
-            padding="0.5rem 1rem"
-            borderRadius="md"
-            transition="background-color 0.2s"
-            _hover={{ backgroundColor: "teal.600" }}
-          >
-            <Text as="span" fontSize="3xl" fontWeight="bold" color="purple.500">e</Text>
-            <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
-            <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Marketplace</Text>
+        <Box
+          display="flex" 
+          alignItems="center" 
+          padding="0.5rem 1rem"
+          borderRadius="md"
+          transition="background-color 0.2s"
+          _hover={{ backgroundColor: "teal.600" }}
+          mb={[2, 2, 0]}  // Add bottom margin on small screens
+        >
+          <Text as="span" fontSize={["2xl", "3xl"]} fontWeight="bold" color="purple.500">e</Text>
+          <Text as="span" fontSize={["3xl", "4xl"]} fontWeight="bold" color="purple.700" ml={1}>Bazaar</Text>
         </Box>
       </Link>
 
       <Menu>
         <MenuButton as={Button} leftIcon={<HamburgerIcon />} bg="transparent" _hover={{ bg: "transparent" }} ml={0}>
-          Shop By Category
+          <Box display={['none', 'none', 'block', 'block']}>
+            Shop By Category
+          </Box>
         </MenuButton>
         <MenuList>
           <Link to="/products/Electronic">
@@ -59,7 +57,7 @@ const Header = () => {
               Home & Garden
             </MenuItem>
           </Link>
-          <Link to="/products/Book">
+          <Link to="/products/Books">
             <MenuItem>
               Books
             </MenuItem>
@@ -67,37 +65,22 @@ const Header = () => {
         </MenuList>
       </Menu>
 
-      <Flex marginLeft="auto" alignItems="center" flexGrow={1}>
+      <Flex flexGrow={1} ml="auto" alignItems="center" width={['100%', '100%', 'auto']} mt={[2, 2, 0]} mb={[2, 2, 0]}>
         <Input
           type="text"
-          placeholder='Search for products...'  bg="white"
-          marginRight={1} 
-          flexGrow={1} 
+          placeholder='Search for products...'
+          bg="white"
+          marginRight={1}
+          flexGrow={1}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={handleSearch}>
+          <SearchIcon />
+        </Button>
       </Flex>
-      <Box>
-        {Auth.loggedIn() ? (
-          <Button onClick={logout}>Logout</Button>
-          ) : (
-          <>
-            <Link to="/login">
-              <Button variant="ghost" color="white" marginLeft={2}>Login</Button>
-            </Link>
-            <Link to="/SignUpForm">
-              <Button variant="ghost" color="white" marginLeft={2}>Sign Up</Button>
-            </Link>
-            <Link to="/ProductForm">
-              <Button variant="ghost" color="white" marginLeft={2}>Sell</Button>
-            </Link>
-          </>
-        )}
-      </Box>
 
-      <Button onClick={goToCart} marginLeft={2} marginRight={15} color="white">🛒</Button>
-
+      <Button onClick={goToCart} ml={2} color="white">🛒</Button>
     </Flex>
   );
 }

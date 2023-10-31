@@ -76,7 +76,7 @@ const CartPage = () => {
                 <Image
                   src={item.imageUrl}
                   alt={item.name}
-                  boxSize="50px"
+                  boxSize="100px"
                   borderColor="grey"
                 />
               </Td>

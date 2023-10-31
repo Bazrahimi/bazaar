@@ -79,8 +79,10 @@ const Header = () => {
           <SearchIcon />
         </Button>
       </Flex>
-
-      <Button onClick={goToCart} ml={2} color="white">🛒</Button>
+      <Button ml="2">Sell-Now</Button>
+      <Button ml="2">Shop-Now</Button>
+      <Button onClick={goToCart} ml={2}>🛒</Button>
+      
     </Flex>
   );
 }

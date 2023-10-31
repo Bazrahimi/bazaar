@@ -14,6 +14,10 @@ const Header = () => {
     }
   }
 
+  const goToCart = () => {
+    navigate('/cart')
+  }
+
   const logout = (e) => {
     e.preventDefault();
     Auth.logout();
@@ -31,7 +35,7 @@ const Header = () => {
           >
             <Text as="span" fontSize="3xl" fontWeight="bold" color="purple.500">e</Text>
             <Text as="span" fontSize="4xl" fontWeight="bold" color="purple.700">Bazaar</Text>
-            <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Modern Marketplace</Text>
+            <Text fontSize="xs" color="gray.600" mt="-4" ml="2">🛒 Marketplace</Text>
         </Box>
       </Link>
 
@@ -92,7 +96,7 @@ const Header = () => {
         )}
       </Box>
 
-      <Text marginLeft={2} marginRight={15} color="white">🛒 Cart</Text>
+      <Button onClick={goToCart} marginLeft={2} marginRight={15} color="white">🛒</Button>
 
     </Flex>
   );

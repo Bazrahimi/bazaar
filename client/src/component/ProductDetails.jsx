@@ -9,6 +9,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useCart } from '../context/cartContext';
+import AuthService from '../utils/auth';
+
 
 const ProductDetails = () => {
   // Hooks should be at the top level and shouldn't be used conditionally
@@ -43,7 +45,11 @@ const ProductDetails = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  
+  const token = AuthService.getToken();
+  const user = AuthService.getUser();
 
+;
   const handleQuantityChange = (e) => {
     setSelectedQuantity(Number(e.target.value));
   };
@@ -54,8 +60,10 @@ const ProductDetails = () => {
     const productToAdd = {
       id: id,
       name: name,
+      imageUrl: imageURLs[0],
       price: price,
-      quantity: selectedQuantity
+      quantity: selectedQuantity,
+      buyerId: user.data._id
     };
     console.log(productToAdd);
     addToCart(productToAdd);

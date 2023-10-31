@@ -14,6 +14,7 @@ import SearchResults from './pages/SearchResult';
 import Login from './pages/Login';
 import SellerDashboard from './pages/SellerDashboard';
 import ProductsBySeller from './pages/ProductsBySeller';
+import CartPage from './pages/cartPage';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider>
@@ -33,10 +34,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="SellerDashboard/:id" element={<SellerDashboard />} />
           <Route path="/ProductForm/:userId" element={<ProductForm />} />
           <Route path="Products/:userId" element= {<ProductsBySeller />} />
+          <Route path="cart" element={<CartPage />} />
+
          
-
-
-
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

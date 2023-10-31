@@ -77,7 +77,7 @@ const Login = () => {
         
         <Link to="/SignUpForm" style={{ display: 'block', marginTop: '16px' }}>
           <Button colorScheme="blue">
-            Sign Up Seller Account
+            Create Account
           </Button>
         </Link>
 

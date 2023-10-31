@@ -28,7 +28,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['buyer', 'seller'], // Restricting the the role of user
+    enum: ['buyer', 'seller', 'both'], // Restricting the the role of user
     required: true,
   },
   address: {

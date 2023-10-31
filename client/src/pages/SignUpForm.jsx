@@ -14,7 +14,7 @@ const  SignUpForm = () =>{
     email: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "both",
     address: "",
     contactNumber: ""
   });
@@ -56,8 +56,6 @@ const  SignUpForm = () =>{
       const { data } = await createUser({
         variables: formData});
         const userId = data.createUser.user.id;
-        console.log(createUser);
-        console.log(data);
 
         Auth.login(data.createUser.token, userId);
       
@@ -130,19 +128,6 @@ const  SignUpForm = () =>{
             placeholder="Confirm Password"
             autoComplete="off"
           />
-        </FormControl>
-
-        <FormControl>
-          <Select 
-            name="role" 
-            value={formData.role} 
-            onChange={handleChange}
-          >
-            <option value="" disabled>Select a role</option>
-            <option value="seller">Seller</option>
-            <option value="buyer">Buyer</option>
-            <option value="both">Both</option>
-          </Select>
         </FormControl>
 
         <FormControl>

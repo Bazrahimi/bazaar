@@ -30,8 +30,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="products/:category" element={<ProductsByCategory />} />
           <Route path="product/:productId" element={<ProductDetails />} />
           <Route path="search" element={<SearchResults />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="SellerDashboard/:id" element={<SellerDashboard />} />
+          <Route path="login" element={<Login />} />
+          <Route path="Dashboard/:id" element={<SellerDashboard />} />
           <Route path="/ProductForm/:userId" element={<ProductForm />} />
           <Route path="Products/:userId" element= {<ProductsBySeller />} />
           <Route path="cart" element={<CartPage />} />

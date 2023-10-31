@@ -2,6 +2,9 @@ import { Box, Button, Flex, Input, Text, Menu, MenuButton, MenuItem, MenuList } 
 import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { FaUser } from 'react-icons/fa'
+import AuthService from '../../utils/auth';
+import auth from "../../utils/auth";
 
 
 const Header = () => {
@@ -17,6 +20,23 @@ const Header = () => {
   const goToCart = () => {
     navigate('/cart')
   }
+
+  const handleAccountClick = () => {
+    if (AuthService.loggedIn()) {
+      const user = AuthService.getUser();
+      if (user && user.data._id) {
+        navigate(`/Dashboard/${user.data._id}`);
+      } else {
+        console.error("Unable to get user ID from token");
+        // Handle the error appropriately, e.g., navigate to a generic dashboard or show an error message.
+      }
+    } else {
+      navigate('/login');
+    }
+  };
+
+
+  
 
   return (
     <Flex as="header" bg="teal.500" alignItems="center" paddingX={4} flexWrap="wrap"> 
@@ -80,7 +100,7 @@ const Header = () => {
         </Button>
       </Flex>
       <Button ml="2">Sell-Now</Button>
-      <Button ml="2">Shop-Now</Button>
+      <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}>Account</Button>
       <Button onClick={goToCart} ml={2}>🛒</Button>
       
     </Flex>

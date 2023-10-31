@@ -31,7 +31,7 @@ class AuthService {
 
   login(idToken, userId) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign(`/SellerDashboard/${userId}`);
+    window.location.assign(`/Dashboard/${userId}`);
   }
 
   isTokenExpired(token) {
@@ -51,7 +51,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
+    window.location.assign('/');
   }
 }
 

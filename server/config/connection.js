@@ -1,7 +1,10 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-const uri = process.env.MONGODB_URI;
+// for some reason process.env.is undefined resuls undefined
+// const uri = process.env.MONGODB_URI;
+
+const uri = "mongodb+srv://bazrahimi:Ridka5-hunkon-badryx@cluster0.6nywhlq.mongodb.net/bazaarDB?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {
   useNewUrlParser: true,

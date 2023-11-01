@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FaUser } from 'react-icons/fa'
 import AuthService from '../../utils/auth';
 import { FiLogOut } from 'react-icons/fi';
+import '../../App.css'
 
 
 
@@ -86,6 +87,14 @@ const Header = () => {
         </MenuList>
       </Menu>
 
+      <Box className="smallScreen" display={['block', 'block', 'none', 'none', 'none']} >
+        <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}></Button>
+        {AuthService.loggedIn() &&  <Button onClick={() => AuthService.logout(navigate)} ml="2" leftIcon={< FiLogOut />} color="red">logout</Button>}
+        <Button onClick={goToCart} ml={2}>🛒</Button>
+      </Box>
+      
+
+
       <Flex flexGrow={1} ml="auto" alignItems="center" width={['100%', '100%', 'auto']} mt={[2, 2, 0]} mb={[2, 2, 0]}>
         <Input
           type="text"
@@ -100,16 +109,13 @@ const Header = () => {
           <SearchIcon />
         </Button>
       </Flex>
+
+      <Box className="largeScreen" display={['none', 'none', 'block', 'block', 'block']}>
+        <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}></Button>
+        {AuthService.loggedIn() &&  <Button onClick={() => AuthService.logout(navigate)} ml="2" leftIcon={< FiLogOut />} color="red">logout</Button>}
+        <Button onClick={goToCart} ml={2}>🛒</Button>
+      </Box>
       
-      <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}></Button>
-
-
-      {AuthService.loggedIn() &&  <Button onClick={() => AuthService.logout(navigate)} ml="2" leftIcon={< FiLogOut />} color="red">logout</Button>}
-
-
-
-
-      <Button onClick={goToCart} ml={2}>🛒</Button>
       
     </Flex>
   );

@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useCart } from '../context/cartContext';
 import AuthService from '../utils/auth';
+import '../../src/App.css'
 
 
 const ProductDetails = () => {
@@ -71,8 +72,8 @@ const ProductDetails = () => {
 
   return (
     <VStack margin="20px" spacing={7} align="start" p={4} boxShadow="xlg" rounded="md">
-      <Flex>
-        <Box w="500px" mr="40px" mb="40px">
+      <Flex direction={{ base: "column", md: "row" }} align={{ base: "center", md: "start" }}>
+        <Box className="largeScreen" w={{ base: "100%", md: "500px" }} mb={{ base: "20px", md: "40px" }}>
           <Slider {...sliderSettings}>
             {imageURLs.map((url, index) => (
               <Box onClick={() => { setSelectedImage(url); onOpen(); }} key={index}>
@@ -82,15 +83,26 @@ const ProductDetails = () => {
           </Slider>
         </Box>
 
-        <Box>
-          <Text fontSize="3xl" mb={4}>{name}</Text>
-          <Text fontSize="2xl" mb={4}>
+        <Box className="smallScreen" w="250px" mb="50px">
+          <Slider {...sliderSettings}>
+            {imageURLs.map((url, index) => (
+              <Box onClick={() => { setSelectedImage(url); onOpen(); }} key={index}>
+                <Image boxSize="full" src={url} alt={name} cursor="pointer" />
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+
+
+        <Box textAlign={{ base: "center", md: "left" }}>
+          <Text fontSize={{ base: "2xl", md: "3xl" }} mb={4}>{name}</Text>
+          <Text fontSize={{ base: "xl", md: "2xl" }} mb={4}>
             <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Price:</span> <span style={{ fontWeight: "bold" }}>${price}</span>
           </Text>
-          <Text fontSize="2xl" mb={4}>
+          <Text fontSize={{ base: "xl", md: "2xl" }} mb={4}>
             <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Available:</span> <span style={{ fontWeight: "bold" }}>{stock}</span>
           </Text>
-          <Text fontSize="2xl" mb={4}>
+          <Text fontSize={{ base: "xl", md: "2xl" }} mb={4}>
             <span style={{ fontSize: "1.5xl", fontWeight: "normal" }}>Seller's Store:</span> <span style={{ fontWeight: "bold" }}>{seller.firstName} </span>
           </Text>
 
@@ -115,6 +127,7 @@ const ProductDetails = () => {
         />
       </Box>
 
+      {/* Modal remains unchanged */}
       <Modal isOpen={isOpen} onClose={onClose} size="xxl">
         <ModalOverlay />
         <ModalContent>
@@ -128,11 +141,8 @@ const ProductDetails = () => {
           </Slider>
         </ModalContent>
       </Modal>
-
-
     </VStack>
   );
 };
-
 
 export default ProductDetails;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Box, Button, Text, Flex, VStack, Heading } from '@chakra-ui/react';
-import { FiLogOut } from 'react-icons/fi';
+
 import UserDetails from '../component/UserDetails';
 import ProductsBySeller from '../pages/ProductsBySeller';
 import AuthService from '../utils/auth'
@@ -30,12 +30,6 @@ const SellerDashboard = () => {
   };
 
   return (
-   
-    <VStack>
-        <VStack marginEnd="-20px">
-        <Button onClick={handleSignOut} colorScheme="red" leftIcon={<FiLogOut />} >Sign Out</Button>
-
-        </VStack>
     <Box padding={5}>
       <VStack spacing={4} align="flex-start">  
         <Heading>{getGreeting()}</Heading>
@@ -52,7 +46,6 @@ const SellerDashboard = () => {
         {showProducts && <ProductsBySeller sellerId={id} />}
       </Flex>
     </Box>
-    </VStack>
 
   );
 };

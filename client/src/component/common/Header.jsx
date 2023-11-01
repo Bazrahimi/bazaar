@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaUser } from 'react-icons/fa'
 import AuthService from '../../utils/auth';
-import auth from "../../utils/auth";
+import { FiLogOut } from 'react-icons/fi';
+
 
 
 const Header = () => {
@@ -99,8 +100,15 @@ const Header = () => {
           <SearchIcon />
         </Button>
       </Flex>
-      <Button ml="2">Sell-Now</Button>
-      <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}>Account</Button>
+      
+      <Button ml="2" leftIcon={<FaUser />} onClick={handleAccountClick}></Button>
+
+
+      {AuthService.loggedIn() &&  <Button onClick={() => AuthService.logout(navigate)} ml="2" leftIcon={< FiLogOut />} color="red">logout</Button>}
+
+
+
+
       <Button onClick={goToCart} ml={2}>🛒</Button>
       
     </Flex>

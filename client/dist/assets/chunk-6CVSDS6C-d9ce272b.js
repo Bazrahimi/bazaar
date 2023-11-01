@@ -1,0 +1,1 @@
+import{u as c}from"./chunk-VLMMX64R-34a5628b.js";import{f as m,i as p,o as l,d as f,j as I,b as d}from"./index-7df5b2c6.js";var a=m(function(s,n){const{htmlSize:o,...t}=s,e=p("Input",t),i=l(t),r=c(i),u=f("chakra-input",s.className);return I.jsx(d.input,{size:o,...r,__css:e.field,ref:n,className:u})});a.displayName="Input";a.id="Input";export{a as I};

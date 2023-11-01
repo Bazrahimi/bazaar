@@ -18,10 +18,8 @@ import {
 
 // Creating a functional component 
 const CartPage = () => {
-  // Using the 'useCart' hook to access cart items and and remove from cart functions
   const { cart: cartItems, removeFromCart } = useCart();
 
-  // checking if there are no items in the cart and displaying a message if the cart is empty
   if (cartItems.length === 0) {
     return <Text>No Items in the Cart</Text>;
   };

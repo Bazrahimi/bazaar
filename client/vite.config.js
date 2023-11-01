@@ -8,7 +8,6 @@ export default defineConfig({
     open: true,
     proxy: {
       '/graphql': {
-        // Hardcoded Heroku URL
         target: 'https://bazaar-ac5f89a8c73b.herokuapp.com',
         changeOrigin: true,
         secure: false,
@@ -17,9 +16,10 @@ export default defineConfig({
   }
 })
 
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
+
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react'
 
 // export default defineConfig({
 //   plugins: [react()],

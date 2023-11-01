@@ -64,9 +64,7 @@ const ProductDetails = () => {
       imageUrl: imageURLs[0],
       price: price,
       quantity: selectedQuantity,
-      buyerId: user.data._id
     };
-    console.log(productToAdd);
     addToCart(productToAdd);
   };
 

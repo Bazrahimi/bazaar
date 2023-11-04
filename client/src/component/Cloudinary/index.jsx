@@ -14,11 +14,8 @@ const UploadWidget = ( { formData, setFormData }) =>{ // destructuring from prob
             // This widget will handle the image upload process.
             widgetRef.current = cloudinaryRef.current.createUploadWidget({
 
-                // cloudName: import.meta.env.VITE_APP_CLOUD_NAME,
-                // uploadPreset: import.meta.env.VITE_APP_UPLOAD_PRESET,
-
-                cloudName: "drvh5xeuw",
-                uploadPreset: "xjha8ild",
+                cloudName: import.meta.env.VITE_APP_CLOUD_NAME,
+                uploadPreset: import.meta.env.VITE_APP_UPLOAD_PRESET,
 
 
 

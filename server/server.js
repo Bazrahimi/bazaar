@@ -1,4 +1,6 @@
 require('dotenv').config();
+
+console.log("MONGODB_URI from .env:", process.env.MONGODB_URI);
 const path = require('path');
 const express = require('express');
 const { expressMiddleware } = require('@apollo/server/express4');
@@ -7,9 +9,12 @@ const { ApolloServer } = require('@apollo/server');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
+const cors = require('cors');
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+app.use(cors());
 const server = new ApolloServer({
   typeDefs,
   resolvers,

@@ -26,7 +26,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-  console.log('App is rendeirng');
   return (
     <ApolloProvider client={client}>
       <CartProvider>

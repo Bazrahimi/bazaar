@@ -19,13 +19,6 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
-// prcoss.env result undefined. 
-// console.log("this is mongodb_uri" + process.env.MONGODB_URI);
-// console.log(process.env.JWT_SECRET);
-// console.log(process.env.JWT_EXPIRATION);
-
-
-
 
 const startApolloServer = async () => {
   await server.start();

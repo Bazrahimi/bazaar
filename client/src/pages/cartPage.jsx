@@ -39,13 +39,13 @@ const CartPage = () => {
     }
 
    
-    const calculateGrandTotalWithDiscount = cartItems => {
-      const total = cartItems.reduce(
-        (acc, item) => acc + calculateSubTotal(item.quantity, item.price),
-        0
-      );
-      return total * 0.01; // 99% discount
-    };
+    // const calculateGrandTotalWithDiscount = cartItems => {
+    //   const total = cartItems.reduce(
+    //     (acc, item) => acc + calculateSubTotal(item.quantity, item.price),
+    //     0
+    //   );
+    //   return total * 0.01; 
+    // };
 
 
 
@@ -108,9 +108,9 @@ const CartPage = () => {
       </Box >
 
       <Box marginBottom= "30px">
-        <Text fontSize="xl" color="green.500">
+        {/* <Text fontSize="xl" color="green.500">
            Grand Total (after 99% discount): ${calculateGrandTotalWithDiscount(cartItems).toFixed(2)}
-        </Text>
+        </Text> */}
 
         <Button colorScheme="teal" size="lg">
            Proceed to Checkout

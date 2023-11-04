@@ -16,7 +16,6 @@ const ProductsBySeller = ({ sellerId }) => {
     const product = data.getProductsBySeller.find(p =>p.id === id);
     // updating the selectedProduct state with the found product.
     setSelectedProduct(product);
-    console.log(product);
   }
 
   

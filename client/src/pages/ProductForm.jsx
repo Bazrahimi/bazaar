@@ -72,7 +72,6 @@ const ProductForm = () => {
           
         };
         const { data } = await createProduct({ variables });
-        console.log("Product created", data.createProduct);
       // Store the product ID
       setNewProductId(data.createProduct.id);
       console.log("this is productid" + data.createProduct.id)

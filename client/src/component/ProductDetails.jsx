@@ -129,7 +129,7 @@ const ProductDetails = () => {
       <Modal isOpen={isOpen} onClose={onClose} size="xxl">
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={onClose} _hover={{ color: 'red'}} _active={{ transform: 'scale(.95'}} />
           <Slider {...sliderSettings} initialSlide={imageURLs.indexOf(selectedImage)}>
             {imageURLs.map((url, index) => (
               <Box key={index}>

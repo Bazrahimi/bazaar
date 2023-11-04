@@ -11,9 +11,9 @@ const Footer = () => {
     </Flex>
     
     <Flex>
-      <Link to="#"><Image src="../src/assets/images/icons/facebook/Facebook_Logo_(2019).png" alt="Facebook" w="30px" marginRight={5} /></Link>
-      <Link to="#"><Image src="../../src/assets/images/icons/twitter/Logo_of_Twitter.svg.png" alt="Twitter" w="30px" marginRight={5} /></Link>
-      <Link to="#"><Image src="../../src/assets/images/icons/instagram/Instagram.png" alt="Instagram" w="30px" /></Link>
+      <Link to="#"><Image src="https://res.cloudinary.com/drvh5xeuw/image/upload/v1699099663/csotqyaahh0hvfbucbt0.png" alt="Facebook" w="30px" marginRight={5} /></Link>
+      <Link to="#"><Image src="https://res.cloudinary.com/drvh5xeuw/image/upload/v1699099700/mumwhqm0ll2zozav59h3.png" alt="Twitter" w="30px" marginRight={5} /></Link>
+      <Link to="#"><Image src="https://res.cloudinary.com/drvh5xeuw/image/upload/v1699099690/o19lubdp5wuklnnkk28l.png" alt="Instagram" w="30px" /></Link>
     </Flex>
 
   </Flex>

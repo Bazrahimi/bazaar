@@ -1,0 +1,1 @@
+.smallScreen{display:none}.largeScreen{display:block}@media screen and (max-width: 768px){.smallScreen{display:block}.largeScreen{display:none}}.largeScreen{display:none}@media screen and (min-width: 768px){.smallScreen{display:none}.largeScreen{display:block}}
